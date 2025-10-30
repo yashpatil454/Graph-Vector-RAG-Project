@@ -59,8 +59,8 @@ def example_all_pdfs():
     processor = get_pdf_processor(data_dir="data", chunk_size=1000, chunk_overlap=200)
     
     try:
-        result = processor.process_all_pdfs(split=True)
-        print(result['chunks'][0])
+        result = processor.process_all_pdfs(split=True, parallel=True)
+        print(result)
         
         # print(f"\n✓ Total Files Processed: {result['total_files']}")
         # print(f"✓ Total Pages: {result['total_pages']}")

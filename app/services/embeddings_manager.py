@@ -70,7 +70,7 @@ class EmbeddingsManager:
                 "OpenAI API key is required. Set OPENAI_API_KEY environment variable "
                 "or pass api_key parameter."
             )
-        embedding_model = OpenAIEmbeddings(model="text-embedding-3-large")
+        embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
         
         logger.info(f"Embeddings model '{self.embedding_model_name}' initialized")
         return embedding_model
@@ -104,7 +104,7 @@ class EmbeddingsManager:
             # self._build_chunk_mapping(chunks)
             
             logger.info(
-                f"✓ Created vector store with {self.vectorstore.index.ntotal} vectors"
+                f"Created vector store with {self.vectorstore.index.ntotal} vectors"
             )
             
             # Save if requested

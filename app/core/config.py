@@ -18,10 +18,10 @@ ENV_FILE = PROJECT_ROOT / ".env"
 # Load .env file if it exists
 if ENV_FILE.exists():
     load_dotenv(ENV_FILE)
-    print(f"✓ Loaded environment from: {ENV_FILE}")
+    print(f"Loaded environment from: {ENV_FILE}")
 else:
-    print(f"⚠️  No .env file found at: {ENV_FILE}")
-    print("   Using default values and environment variables")
+    print(f"No .env file found at: {ENV_FILE}")
+    print("Using default values and environment variables")
 
 
 class Settings(BaseSettings):

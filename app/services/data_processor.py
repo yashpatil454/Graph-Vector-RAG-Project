@@ -5,6 +5,7 @@ Handles PDF loading, text extraction, chunking, and metadata extraction
 
 import os
 import re
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 from typing import List, Dict, Any, Optional
 from datetime import datetime
@@ -102,44 +103,11 @@ class PDFProcessor:
         
         return text.strip()
 
-    # def load_single_pdf(self, file_path: str) -> List[Document]:
-    #     """
-    #     Load a single PDF file and return document objects.
-
-    #     Args:
-    #         file_path: Path to PDF file
-
-    #     Returns:
-    #         List of Document objects (one per page)
-    #     """
-    #     try:
-    #         loader = PyPDFLoader(file_path)
-    #         documents = loader.load()
-
-    #         # Clean text if enabled
-    #         if self.clean_text:
-    #             for doc in documents:
-    #                 doc.page_content = self._clean_text(doc.page_content)
-
-    #         logger.info(
-    #             f"Loaded {len(documents)} pages from {Path(file_path).name}"
-    #         )
-
-    #         return documents
-
-    #     except Exception as e:
-    #         logger.error(f"Error loading PDF {file_path}: {str(e)}")
-    #         raise
 
     def load_all_pdfs(self, glob_pattern: str = "**/*.pdf") -> List[Document]:
-        """
-        Load all PDF files from the data directory.
+        """Load all PDF files from the data directory (sequential).
 
-        Args:
-            glob_pattern: Pattern to match PDF files
-
-        Returns:
-            List of all Document objects from all PDFs
+        Prefer using `load_all_pdfs_parallel` for large batches.
         """
         try:
             loader = DirectoryLoader(
@@ -150,20 +118,92 @@ class PDFProcessor:
             )
             documents = loader.load()
 
-            # Clean text if enabled
             if self.clean_text:
                 for doc in documents:
                     doc.page_content = self._clean_text(doc.page_content)
 
-            logger.info(
-                f"Loaded {len(documents)} total pages from {self.data_dir}"
-            )
-
+            logger.info(f"Loaded {len(documents)} total pages from {self.data_dir}")
             return documents
-
         except Exception as e:
             logger.error(f"Error loading PDFs from directory: {str(e)}")
             raise
+
+    @staticmethod
+    def _clean_text_worker(text: str) -> str:
+        """Static version of text cleaning for parallel workers."""
+        # Replace non-breaking spaces (\xa0) with regular spaces
+        text = text.replace('\xa0', ' ')
+        text = re.sub(r'\n{3,}', '\n\n', text)
+        text = re.sub(r'(?<!\n)\n(?!\n)', ' ', text)
+        text = re.sub(r' {2,}', ' ', text)
+        text = re.sub(r'\s+([.,;:!?])', r'\1', text)
+        lines = [line.strip() for line in text.split('\n')]
+        text = '\n'.join(lines)
+        text = re.sub(r' +', ' ', text)
+        return text.strip()
+
+    @staticmethod
+    def _load_single_pdf_worker(file_path: str, clean_text: bool) -> List[Document]:
+        """Worker function to load and optionally clean a single PDF (per process)."""
+        loader = PyPDFLoader(file_path)
+        documents = loader.load()
+        if clean_text:
+            for doc in documents:
+                doc.page_content = PDFProcessor._clean_text_worker(doc.page_content)
+        return documents
+
+    def load_all_pdfs_parallel(
+        self,
+        glob_pattern: str = "**/*.pdf",
+        max_workers: Optional[int] = None
+    ) -> List[Document]:
+        """Load all PDF files using multiple processes.
+        Args:
+            glob_pattern: Glob pattern for PDF discovery.
+            max_workers: Override number of processes (defaults to CPU count or number of files).
+        Returns:
+            List[Document]: All page Documents across all PDFs.
+        """
+        # Collect file paths matching glob
+        pdf_files = [str(p) for p in Path(self.data_dir).rglob("*.pdf") if p.is_file()]
+        if not pdf_files:
+            logger.warning(f"No PDF files found in {self.data_dir}")
+            return []
+
+        if max_workers is None:
+            cpu_cnt = os.cpu_count() or 1
+            max_workers = min(len(pdf_files), cpu_cnt)
+
+        logger.info(
+            f"Starting parallel load of {len(pdf_files)} PDFs with {max_workers} workers"
+        )
+
+        all_documents: List[Document] = []
+        try:
+            with ProcessPoolExecutor(max_workers=max_workers) as executor:
+                future_map = {
+                    executor.submit(
+                        PDFProcessor._load_single_pdf_worker, file_path, self.clean_text
+                    ): file_path for file_path in pdf_files
+                }
+                for future in as_completed(future_map):
+                    file_path = future_map[future]
+                    try:
+                        docs = future.result()
+                        all_documents.extend(docs)
+                        logger.debug(
+                            f"Loaded {len(docs)} pages from {Path(file_path).name} (parallel)"
+                        )
+                    except Exception as e:
+                        logger.error(f"Failed to load {file_path}: {e}")
+        except Exception as e:
+            logger.error(f"Parallel PDF loading encountered an error: {e}")
+            raise
+
+        logger.info(
+            f"Parallel loading complete: {len(all_documents)} total pages from {len(pdf_files)} PDFs"
+        )
+        return all_documents
 
     def split_documents(self, documents: List[Document]) -> List[Document]:
         """
@@ -188,57 +228,12 @@ class PDFProcessor:
             logger.error(f"Error splitting documents: {str(e)}")
             raise
 
-    # def process_pdf(
-    #     self,
-    #     file_path: str,
-    #     split: bool = True
-    # ) -> Dict[str, Any]:
-    #     """
-    #     Process a single PDF file: load and optionally split.
-
-    #     Args:
-    #         file_path: Path to PDF file
-    #         split: Whether to split into chunks
-
-    #     Returns:
-    #         Dictionary containing documents/chunks and metadata
-    #     """
-    #     try:
-    #         # Load PDF
-    #         documents = self.load_single_pdf(file_path)
-
-    #         # Split if requested
-    #         chunks = self.split_documents(documents) if split else documents
-
-    #         # Extract metadata
-    #         metadata = self._extract_metadata(file_path, documents, chunks)
-
-    #         result = {
-    #             "file_path": file_path,
-    #             "file_name": Path(file_path).name,
-    #             "total_pages": len(documents),
-    #             "total_chunks": len(chunks),
-    #             "documents": documents if not split else None,
-    #             "chunks": chunks,
-    #             "metadata": metadata,
-    #             "processed_at": datetime.now().isoformat()
-    #         }
-
-    #         logger.info(
-    #             f"Successfully processed {Path(file_path).name}: "
-    #             f"{len(documents)} pages → {len(chunks)} chunks"
-    #         )
-
-    #         return result
-
-    #     except Exception as e:
-    #         logger.error(f"Error processing PDF: {str(e)}")
-    #         raise
-
     def process_all_pdfs(
         self,
         split: bool = True,
-        glob_pattern: str = "**/*.pdf"
+        glob_pattern: str = "**/*.pdf",
+        parallel: bool = True,
+        max_workers: Optional[int] = None
     ) -> Dict[str, Any]:
         """
         Process all PDF files in the data directory.
@@ -251,8 +246,11 @@ class PDFProcessor:
             Dictionary containing all processed documents and metadata
         """
         try:
-            # Load all PDFs
-            documents = self.load_all_pdfs(glob_pattern)
+            # Load all PDFs (parallel or sequential)
+            if parallel:
+                documents = self.load_all_pdfs_parallel(glob_pattern=glob_pattern, max_workers=max_workers)
+            else:
+                documents = self.load_all_pdfs(glob_pattern)
 
             if not documents:
                 logger.warning(f"No PDF files found in {self.data_dir}")
@@ -278,8 +276,9 @@ class PDFProcessor:
                 "processed_at": datetime.now().isoformat()
             }
 
+            mode = "parallel" if parallel else "sequential"
             logger.info(
-                f"Successfully processed {len(processed_files)} PDFs: "
+                f"Successfully processed {len(processed_files)} PDFs ({mode}): "
                 f"{len(documents)} pages → {len(chunks)} chunks"
             )
 
@@ -288,102 +287,6 @@ class PDFProcessor:
         except Exception as e:
             logger.error(f"Error processing all PDFs: {str(e)}")
             raise
-
-    # def _extract_metadata(
-    #     self,
-    #     file_path: str,
-    #     documents: List[Document],
-    #     chunks: List[Document]
-    # ) -> Dict[str, Any]:
-    #     """
-    #     Extract metadata from processed documents.
-
-    #     Args:
-    #         file_path: Path to PDF file
-    #         documents: Original documents (pages)
-    #         chunks: Split chunks
-
-    #     Returns:
-    #         Dictionary of metadata
-    #     """
-    #     file_path_obj = Path(file_path)
-
-    #     # Calculate basic statistics
-    #     total_chars = sum(len(doc.page_content) for doc in documents)
-    #     avg_chars_per_page = total_chars / len(documents) if documents else 0
-    #     avg_chars_per_chunk = sum(len(chunk.page_content) for chunk in chunks) / len(chunks) if chunks else 0
-
-    #     metadata = {
-    #         "file_name": file_path_obj.name,
-    #         "file_size_bytes": file_path_obj.stat().st_size if file_path_obj.exists() else 0,
-    #         "total_pages": len(documents),
-    #         "total_chunks": len(chunks),
-    #         "total_characters": total_chars,
-    #         "avg_chars_per_page": round(avg_chars_per_page, 2),
-    #         "avg_chars_per_chunk": round(avg_chars_per_chunk, 2),
-    #         "chunk_size": self.chunk_size,
-    #         "chunk_overlap": self.chunk_overlap,
-    #     }
-
-    #     return metadata
-
-    # def get_chunk_by_index(
-    #     self,
-    #     chunks: List[Document],
-    #     index: int
-    # ) -> Optional[Document]:
-    #     """
-    #     Get a specific chunk by index.
-
-    #     Args:
-    #         chunks: List of document chunks
-    #         index: Index of chunk to retrieve
-
-    #     Returns:
-    #         Document chunk or None if index out of range
-    #     """
-    #     if 0 <= index < len(chunks):
-    #         return chunks[index]
-    #     else:
-    #         logger.warning(f"Chunk index {index} out of range (0-{len(chunks)-1})")
-    #         return None
-
-    # def extract_text_content(self, documents: List[Document]) -> str:
-    #     """
-    #     Extract all text content from documents.
-
-    #     Args:
-    #         documents: List of Document objects
-
-    #     Returns:
-    #         Combined text content
-    #     """
-    #     return "\n\n".join(doc.page_content for doc in documents)
-
-    # def get_chunks_with_metadata(
-    #     self,
-    #     chunks: List[Document]
-    # ) -> List[Dict[str, Any]]:
-    #     """
-    #     Get chunks with their metadata in a structured format.
-
-    #     Args:
-    #         chunks: List of document chunks
-
-    #     Returns:
-    #         List of dictionaries with chunk content and metadata
-    #     """
-    #     result = []
-    #     for i, chunk in enumerate(chunks):
-    #         result.append({
-    #             "chunk_id": i,
-    #             "content": chunk.page_content,
-    #             "metadata": chunk.metadata,
-    #             "char_count": len(chunk.page_content)
-    #         })
-
-    #     return result
-
 
 # Singleton instance for easy access
 _processor_instance: Optional[PDFProcessor] = None
