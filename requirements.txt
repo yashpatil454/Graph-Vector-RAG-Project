@@ -10,4 +10,5 @@ python-dotenv
 pydantic-settings
 faiss-cpu
 langchain_openai
+langchain-google-genai
 pytest

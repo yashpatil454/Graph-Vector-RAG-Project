@@ -34,6 +34,10 @@ class Settings(BaseSettings):
         default="",
         description="OpenAI API key for embeddings and Gemini"
     )
+    GOOGLE_API_KEY: str = Field(
+        default="",
+        description="Google Generative AI (Gemini) API key"
+    )
 
     # =============================================================================
     # APPLICATION SETTINGS
@@ -57,8 +61,8 @@ class Settings(BaseSettings):
     # EMBEDDINGS SETTINGS
     # =============================================================================
     EMBEDDING_MODEL: str = Field(
-        default="models/embedding-001",
-        description="Google embedding model name"
+        default="models/gemini-embedding-001",
+        description="Default Google Gemini embedding model name"
     )
     EMBEDDING_DIMENSION: int = Field(default=768, description="Dimension of embedding vectors")
     EMBEDDING_BATCH_SIZE: int = Field(default=100, description="Batch size for embedding generation")

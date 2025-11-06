@@ -15,3 +15,23 @@
 2025-10-28 14:27:02,928 - [INFO] - FastAPIAppLogger - Incoming request: GET http://localhost:8000/rag/
 2025-10-28 14:27:02,931 - [INFO] - FastAPIAppLogger - Root endpoint accessed
 2025-10-28 14:27:02,932 - [INFO] - FastAPIAppLogger - Completed GET /rag/ with status 200 in 4.00 ms
+2025-11-06 16:07:13,138 - [INFO] - FastAPIAppLogger - Using CacheBackedEmbeddings for OpenAI provider.
+2025-11-06 16:07:13,181 - [INFO] - FastAPIAppLogger - VectorStoreService initialized provider=openai persist_dir=vector_store cache=True
+2025-11-06 16:07:16,713 - [WARNING] - FastAPIAppLogger - Failed to load vector store: Error in __cdecl faiss::FileIOReader::FileIOReader(const char *) at D:\a\faiss-wheels\faiss-wheels\third-party\faiss\faiss\impl\io.cpp:70: Error: 'f' failed: could not open vector_store\index.faiss for reading: No such file or directory
+2025-11-06 16:12:22,413 - [INFO] - FastAPIAppLogger - Using CacheBackedEmbeddings for OpenAI provider.
+2025-11-06 16:12:22,426 - [INFO] - FastAPIAppLogger - VectorStoreService initialized provider=openai persist_dir=vector_store cache=True
+2025-11-06 16:12:22,809 - [WARNING] - FastAPIAppLogger - Failed to load vector store: Error in __cdecl faiss::FileIOReader::FileIOReader(const char *) at D:\a\faiss-wheels\faiss-wheels\third-party\faiss\faiss\impl\io.cpp:70: Error: 'f' failed: could not open vector_store\index.faiss for reading: No such file or directory
+2025-11-06 16:28:56,091 - [INFO] - FastAPIAppLogger - Using CacheBackedEmbeddings for OpenAI provider.
+2025-11-06 16:28:56,092 - [INFO] - FastAPIAppLogger - VectorStoreService initialized provider=openai persist_dir=vector_store cache=True
+2025-11-06 16:28:56,335 - [WARNING] - FastAPIAppLogger - Failed to load vector store: Error in __cdecl faiss::FileIOReader::FileIOReader(const char *) at D:\a\faiss-wheels\faiss-wheels\third-party\faiss\faiss\impl\io.cpp:70: Error: 'f' failed: could not open vector_store\index.faiss for reading: No such file or directory
+2025-11-06 16:38:56,989 - [INFO] - FastAPIAppLogger - Using CacheBackedEmbeddings for OpenAI provider.
+2025-11-06 16:38:56,989 - [INFO] - FastAPIAppLogger - VectorStoreService initialized provider=openai persist_dir=vector_store cache=True
+2025-11-06 16:38:57,151 - [WARNING] - FastAPIAppLogger - Failed to load vector store: Error in __cdecl faiss::FileIOReader::FileIOReader(const char *) at D:\a\faiss-wheels\faiss-wheels\third-party\faiss\faiss\impl\io.cpp:70: Error: 'f' failed: could not open vector_store\index.faiss for reading: No such file or directory
+2025-11-06 16:40:35,035 - [INFO] - FastAPIAppLogger - Using CacheBackedEmbeddings for OpenAI provider.
+2025-11-06 16:40:35,036 - [INFO] - FastAPIAppLogger - VectorStoreService initialized provider=openai persist_dir=vector_store cache=True
+2025-11-06 16:40:35,208 - [WARNING] - FastAPIAppLogger - Failed to load vector store: Error in __cdecl faiss::FileIOReader::FileIOReader(const char *) at D:\a\faiss-wheels\faiss-wheels\third-party\faiss\faiss\impl\io.cpp:70: Error: 'f' failed: could not open vector_store\index.faiss for reading: No such file or directory
+2025-11-06 18:44:34,656 - [INFO] - FastAPIAppLogger - Using CacheBackedEmbeddings for provider 'gemini'.
+2025-11-06 18:44:34,662 - [INFO] - FastAPIAppLogger - VectorStoreService initialized provider=gemini persist_dir=vector_store cache=True
+2025-11-06 18:44:34,859 - [WARNING] - FastAPIAppLogger - Failed to load vector store: Error in __cdecl faiss::FileIOReader::FileIOReader(const char *) at D:\a\faiss-wheels\faiss-wheels\third-party\faiss\faiss\impl\io.cpp:70: Error: 'f' failed: could not open vector_store\index.faiss for reading: No such file or directory
+2025-11-06 18:44:37,278 - [INFO] - FastAPIAppLogger - FAISS index built with 10 documents (chunks).
+2025-11-06 18:44:37,292 - [INFO] - FastAPIAppLogger - Vector store persisted to vector_store.
