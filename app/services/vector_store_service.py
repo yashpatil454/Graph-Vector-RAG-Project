@@ -3,20 +3,16 @@ Provides functionality to build, persist, and query a FAISS vector index
 from processed PDF document chunks.
 
 Features:
-- Supports OpenAI embeddings (requires OPENAI_API_KEY) and Google Gemini embeddings
-    (requires GOOGLE_API_KEY) via LangChain integration.
+- Supports Google Gemini embeddings (requires GOOGLE_API_KEY) via LangChain integration.
 - Builds FAISS index from LangChain `Document` objects.
 - Similarity search (with and without scores) and MMR search.
 - Persistence (save/load local index directory).
 - Optional embedding caching via CacheBackedEmbeddings for both providers.
 
 Notes:
-- Set the environment variable OPENAI_API_KEY or GOOGLE_API_KEY before using this service
+- Set the environment variable GOOGLE_API_KEY before using this service
     depending on the chosen provider.
 - Call `save()` to persist, then later instantiate and call `load()` to restore.
-
-If you require an offline deterministic embedding for tests, consider adding a mock layer
-in your test suite instead of embedding implementations here.
 """
 
 from __future__ import annotations
@@ -44,10 +40,9 @@ class VectorStoreService:
     """Service wrapping FAISS vector store operations.
 
     Parameters:
-        embedding_provider: One of "openai", "gemini", or "google".
+        embedding_provider: "gemini"
         persist_dir: Directory to persist FAISS index artifacts.
         use_cache: If True and supported, wrap embeddings with file-cache.
-        openai_model: Model name for OpenAI embeddings (default text-embedding-3-small).
         gemini_model: Model name for Gemini embeddings (default models/gemini-embedding-001).
     """
 
@@ -56,14 +51,12 @@ class VectorStoreService:
         embedding_provider: str = "openai",
         persist_dir: str = "vector_store",
         use_cache: bool = True,
-        openai_model: str = "text-embedding-3-small",
         gemini_model: str = "models/gemini-embedding-001",
     ):
         self.embedding_provider = embedding_provider.lower()
         self.persist_dir = Path(persist_dir)
         self.persist_dir.mkdir(parents=True, exist_ok=True)
         self.use_cache = use_cache
-        self.openai_model = openai_model
         self.gemini_model = gemini_model
 
         self._embeddings: Embeddings = self._init_embeddings()
@@ -78,15 +71,7 @@ class VectorStoreService:
         """Initialize embeddings based on provider selection."""
         provider = self.embedding_provider
 
-        if provider == "openai":
-            if not settings.OPENAI_API_KEY:
-                raise EnvironmentError("OPENAI_API_KEY missing from environment.")
-            base: Embeddings = OpenAIEmbeddings(
-                model=self.openai_model,
-                api_key=settings.OPENAI_API_KEY,
-            )
-            namespace = getattr(base, "model", "openai")
-        elif provider in {"gemini", "google"}:
+        if provider == "gemini":
             # Gemini embedding expects GOOGLE_API_KEY in environment
             google_api_key = settings.GOOGLE_API_KEY or os.getenv("GOOGLE_API_KEY", "")
             if not google_api_key:
@@ -97,7 +82,7 @@ class VectorStoreService:
             namespace = getattr(base, "model", "gemini")
         else:
             raise ValueError(
-                f"Unsupported embedding_provider '{provider}'. Only 'openai' and 'gemini'/'google' are supported."
+                f"Unsupported embedding_provider '{provider}'. Only 'gemini' is supported."
             )
 
         if self.use_cache:
@@ -207,10 +192,9 @@ _def_instance: Optional[VectorStoreService] = None
 
 
 def get_vector_store_service(
-    embedding_provider: str = "openai",
+    embedding_provider: str = "gemini",
     persist_dir: str = "vector_store",
     use_cache: bool = True,
-    openai_model: str = "text-embedding-3-small",
     gemini_model: str = "models/gemini-embedding-001",
     auto_load: bool = True,
 ) -> VectorStoreService:
@@ -224,7 +208,6 @@ def get_vector_store_service(
             embedding_provider=embedding_provider,
             persist_dir=persist_dir,
             use_cache=use_cache,
-            openai_model=openai_model,
             gemini_model=gemini_model,
         )
         if auto_load:

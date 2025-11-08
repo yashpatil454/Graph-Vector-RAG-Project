@@ -5,6 +5,7 @@ from app.core.config import settings
 from app.core.logger import SingletonLogger
 from app.core.logging_middleware import LoggingMiddleware
 from app.routers import health, ingestion_pipeline
+from app.routers import data_processor_router
 
 logger = SingletonLogger().get_logger()
 
@@ -26,7 +27,7 @@ app.add_middleware(LoggingMiddleware)
 # Include routers
 logger.info("Including routers...")
 app.include_router(health.router)
-app.include_router(ingestion_pipeline.router)
+app.include_router(data_processor_router.router)
 
 # Root endpoint
 @app.get("/")
