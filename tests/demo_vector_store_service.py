@@ -42,7 +42,6 @@ def main():
     chunks = result.get("chunks", [])
     print(f"Loaded {len(chunks)} chunks from PDFs.")
 
-    # Switch to Gemini embeddings (requires GOOGLE_API_KEY in environment)
     try:
         vs_service = get_vector_store_service(embedding_provider="gemini", auto_load=True)
     except EnvironmentError as e:

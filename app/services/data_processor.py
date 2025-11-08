@@ -10,6 +10,8 @@ from pathlib import Path
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 import logging
+import json
+from collections import defaultdict
 
 from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -228,12 +230,85 @@ class PDFProcessor:
             logger.error(f"Error splitting documents: {str(e)}")
             raise
 
+    # ------------------------ Persistence Helpers ------------------------ #
+
+    def save_chunks(
+        self,
+        chunks: List[Document],
+        output_dir: str,
+        format: str = "jsonl"
+    ) -> None:
+        """Persist chunk documents to disk.
+
+        Args:
+            chunks: List of chunk Documents
+            output_dir: Directory where chunks will be stored
+            format: Persistence format (only 'jsonl' supported currently)
+        """
+        if format.lower() != "jsonl":
+            raise ValueError("Only 'jsonl' format is currently supported.")
+
+        os.makedirs(output_dir, exist_ok=True)
+        logger.info(f"Persisting {len(chunks)} chunks to {output_dir}")
+        target_path = Path(output_dir) / "chunks.jsonl"
+        tmp_path = target_path.with_suffix(".tmp")
+        with open(tmp_path, "w", encoding="utf-8") as f:
+            for d in chunks:
+                record = {"page_content": d.page_content, "metadata": d.metadata}
+                f.write(json.dumps(record, ensure_ascii=False) + "\n")
+        tmp_path.replace(target_path)
+        logger.debug(f"Wrote chunks file: {target_path}")
+
+        logger.info("Chunk persistence complete.")
+
+    def load_persisted_chunks(
+        self,
+        input_dir: str,
+        format: str = "jsonl"
+    ) -> List[Document]:
+        """Load persisted chunk documents from disk.
+
+        Args:
+            input_dir: Directory containing persisted chunk files
+            format: Persistence format used (only 'jsonl')
+
+        Returns:
+            List[Document]: Reconstructed chunk documents
+        """
+        if format.lower() != "jsonl":
+            raise ValueError("Only 'jsonl' format is currently supported.")
+
+        path_obj = Path(input_dir)
+        if not path_obj.exists():
+            raise FileNotFoundError(f"Persistence directory not found: {input_dir}")
+
+        target = path_obj / "chunks.jsonl"
+        if not target.exists():
+            logger.warning(f"Chunks file missing in {input_dir}")
+            return []
+        documents: List[Document] = []
+        with open(target, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    obj = json.loads(line)
+                    documents.append(Document(page_content=obj["page_content"], metadata=obj.get("metadata", {})))
+                except json.JSONDecodeError as e:
+                    logger.error(f"Failed to parse line in {target.name}: {e}")
+        logger.info(f"Loaded {len(documents)} persisted chunks from {target}")
+        return documents
+
     def process_all_pdfs(
         self,
         split: bool = True,
         glob_pattern: str = "**/*.pdf",
         parallel: bool = True,
-        max_workers: Optional[int] = None
+        max_workers: Optional[int] = None,
+        persist: bool = True,
+        persist_dir: Optional[str] = None,
+        persist_format: str = "jsonl"
     ) -> Dict[str, Any]:
         """
         Process all PDF files in the data directory.
@@ -241,6 +316,11 @@ class PDFProcessor:
         Args:
             split: Whether to split documents into chunks
             glob_pattern: Pattern to match PDF files
+            parallel: Use parallel loading
+            max_workers: Number of processes for parallel mode
+            persist: Whether to persist chunks to disk
+            persist_dir: Target directory for persistence (created if missing)
+            persist_format: Currently only 'jsonl' supported
 
         Returns:
             Dictionary containing all processed documents and metadata
@@ -273,8 +353,26 @@ class PDFProcessor:
                 "total_chunks": len(chunks),
                 "processed_files": processed_files,
                 "chunks": chunks,
-                "processed_at": datetime.now().isoformat()
+                "processed_at": datetime.now().isoformat(),
+                "persisted": False,
+                "persist_dir": None,
+                "persist_error": None,
             }
+
+            # Persist if requested
+            if persist:
+                try:
+                    self.save_chunks(
+                        chunks,
+                        output_dir=persist_dir or os.path.join(str(self.data_dir), "processed_chunks"),
+                        format=persist_format
+                    )
+                    result["persisted"] = True
+                    result["persist_dir"] = persist_dir or os.path.join(str(self.data_dir), "processed_chunks")
+                except Exception as e:
+                    logger.error(f"Failed to persist chunks: {e}")
+                    result["persisted"] = False
+                    result["persist_error"] = str(e)
 
             mode = "parallel" if parallel else "sequential"
             logger.info(
@@ -298,20 +396,8 @@ def get_pdf_processor(
     chunk_overlap: Optional[int] = None,
     clean_text: Optional[bool] = None
 ) -> PDFProcessor:
-    """
-    Get or create a singleton PDFProcessor instance.
-
-    Args:
-        data_dir: Directory containing PDF files (default from config)
-        chunk_size: Size of text chunks (default from config)
-        chunk_overlap: Overlap between chunks (default from config)
-        clean_text: Whether to clean text (default from config)
-
-    Returns:
-        PDFProcessor instance
-    """
+    """Get or create a singleton PDFProcessor instance."""
     global _processor_instance
-
     if _processor_instance is None:
         _processor_instance = PDFProcessor(
             data_dir=data_dir,
@@ -319,5 +405,4 @@ def get_pdf_processor(
             chunk_overlap=chunk_overlap,
             clean_text=clean_text
         )
-
     return _processor_instance
