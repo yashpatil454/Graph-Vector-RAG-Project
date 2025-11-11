@@ -30,6 +30,7 @@ from langchain_community.docstore.in_memory import InMemoryDocstore
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from app.core.config import settings
 import faiss
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from langchain_classic.embeddings import CacheBackedEmbeddings  
 from langchain_classic.storage import LocalFileStore 
@@ -94,16 +95,48 @@ class VectorStoreService:
         return base
 
     def add_documents(self, documents: List[Document]) -> int:
-        """Add additional documents to existing index."""
+        """Add documents in token-size batches (each under 20,000 tokens)."""
         if not documents:
             return 0
-        self._vector_store.add_documents(documents)
-        logger.info(f"Added {len(documents)} documents to vector store.")
+
+        splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+            model_name="text-embedding-3-small"
+        )
+
+        max_tokens_per_batch = 20_000
+        batch, batch_tokens, total_tokens, total_documents = [], 0, 0, len(documents)
+        batches_added = 0
+
+        for doc in documents:
+            n_tokens = splitter._length_function(doc.page_content)
+
+            # If adding this doc would exceed batch limit, flush batch first
+            if batch and (batch_tokens + n_tokens > max_tokens_per_batch):
+                self._vector_store.add_documents(batch)
+                batches_added += 1
+                logger.info(f"Committed batch {batches_added} (Approx. {batch_tokens} tokens, {len(batch)} docs).")
+                batch, batch_tokens = [], 0  # reset after adding batch
+
+            # Add current doc to batch
+            batch.append(doc)
+            batch_tokens += n_tokens
+            total_tokens += n_tokens
+
+        # Add remaining batch if any
+        if batch:
+            self._vector_store.add_documents(batch)
+            batches_added += 1
+            logger.info(f"Committed final batch {batches_added} (Approx. {batch_tokens} tokens, {len(batch)} docs).")
+
+        logger.info(f"Total: {total_documents} documents processed in {batches_added} batches (Approx. {total_tokens} tokens total).")
+
+        # Save vector store
         try:
             self.save()
         except Exception as e:
             logger.error(f"Failed to save vector store after adding documents: {e}")
-        return len(documents)
+
+        return total_documents
 
     # ------------------------------------------------------------------
     # Search

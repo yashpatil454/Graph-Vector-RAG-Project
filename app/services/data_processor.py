@@ -54,12 +54,21 @@ class PDFProcessor:
         self.add_start_index = settings.PDF_ADD_START_INDEX
         self.clean_text = settings.PDF_CLEAN_TEXT
 
+        # Splitter with character-based chunking
         # Initialize text splitter
-        self.text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=self.chunk_size,
+        # self.text_splitter = RecursiveCharacterTextSplitter(
+        #     chunk_size=self.chunk_size,
+        #     chunk_overlap=self.chunk_overlap,
+        #     add_start_index=self.add_start_index,
+        #     separators=["\n\n", "\n", " ", ""]
+        # )
+
+        # Splitter with token-based chunking
+        self.text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+            model_name="text-embedding-3-small",  # or another model
+            chunk_size=self.chunk_size,   # ~1000 tokens now
             chunk_overlap=self.chunk_overlap,
-            add_start_index=self.add_start_index,
-            separators=["\n\n", "\n", " ", ""]
+            add_start_index=self.add_start_index
         )
 
         logger.info(
