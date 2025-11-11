@@ -263,7 +263,7 @@ class PDFProcessor:
 
     def load_persisted_chunks(
         self,
-        input_dir: str,
+        input_dir: str = "data/processed_chunks",
         format: str = "jsonl"
     ) -> List[Document]:
         """Load persisted chunk documents from disk.

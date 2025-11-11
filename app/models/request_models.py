@@ -22,3 +22,12 @@ class PDFProcessResponse(BaseModel):
 	persist_dir: Optional[str] = Field(default=None, description="Directory where chunks were persisted")
 	persist_error: Optional[str] = Field(default=None, description="Error message if persistence failed")
 
+class VectorStoreRequest(BaseModel):
+	embedding_provider: str = Field(default="gemini", description="Embedding provider to use")
+	persist_dir: str = Field(default="vector_store", description="Directory to store persisted chunks")
+	use_cache: bool = Field(default=True, description="Whether to use caching")
+	gemini_model: str = Field(default="models/gemini-embedding-001", description="Gemini model to use")
+	
+class VectorStoreResponse(BaseModel):
+    len_documents: int
+    

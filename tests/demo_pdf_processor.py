@@ -60,7 +60,6 @@ def example_all_pdfs():
     
     try:
         result = processor.process_all_pdfs(split=True, parallel=True)
-        print(result)
         
         # print(f"\n✓ Total Files Processed: {result['total_files']}")
         # print(f"✓ Total Pages: {result['total_pages']}")
@@ -78,7 +77,6 @@ def example_all_pdfs():
         #     print(f"   • Max chunk size: {max(chunk_lengths)} chars")
         #     print(f"   • Avg chunk size: {sum(chunk_lengths) / len(chunk_lengths):.2f} chars")
             
-        return result
         
     except Exception as e:
         print(f"❌ Error: {str(e)}")
@@ -194,6 +192,9 @@ def main():
     # Run examples
     # example_single_pdf()
     example_all_pdfs()
+    processor = get_pdf_processor()
+    loaded = processor.load_persisted_chunks("data/processed_chunks")
+    print(loaded)
     # example_chunks_with_metadata()
     # example_custom_chunking()
     # example_extract_full_text()

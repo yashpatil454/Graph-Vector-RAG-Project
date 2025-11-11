@@ -27,9 +27,9 @@ from langchain_core.documents import Document
 from langchain_core.embeddings import Embeddings
 from langchain_community.vectorstores import FAISS
 from langchain_community.docstore.in_memory import InMemoryDocstore
-from langchain_openai import OpenAIEmbeddings
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from app.core.config import settings
+import faiss
 
 from langchain_classic.embeddings import CacheBackedEmbeddings  
 from langchain_classic.storage import LocalFileStore 
@@ -93,37 +93,16 @@ class VectorStoreService:
             return cached
         return base
 
-    # ------------------------------------------------------------------
-    # Build / Add
-    # ------------------------------------------------------------------
-    def from_documents(self, documents: List[Document]) -> None:
-        """Create a new FAISS index from documents (replaces existing)."""
-        if not documents:
-            raise ValueError("No documents provided to build vector store.")
-
-        import faiss  # Local import to avoid unnecessary dependency issues early
-        embedding_dim = len(self._embeddings.embed_query("dimension probe"))
-        index = faiss.IndexFlatL2(embedding_dim)
-
-        self._vector_store = FAISS(
-            embedding_function=self._embeddings,
-            index=index,
-            docstore=InMemoryDocstore(),
-            index_to_docstore_id={},
-        )
-
-        self._vector_store.add_documents(documents)
-        logger.info(f"FAISS index built with {len(documents)} documents (chunks).")
-
     def add_documents(self, documents: List[Document]) -> int:
         """Add additional documents to existing index."""
         if not documents:
             return 0
-        if self._vector_store is None:
-            self.from_documents(documents)
-            return len(documents)
         self._vector_store.add_documents(documents)
         logger.info(f"Added {len(documents)} documents to vector store.")
+        try:
+            self.save()
+        except Exception as e:
+            logger.error(f"Failed to save vector store after adding documents: {e}")
         return len(documents)
 
     # ------------------------------------------------------------------
@@ -153,23 +132,46 @@ class VectorStoreService:
         self._vector_store.save_local(str(self.persist_dir))
         logger.info(f"Vector store persisted to {self.persist_dir}.")
 
-    def load(self) -> bool:
-        """Load existing persisted FAISS index. Returns True if successful."""
-        if not self.persist_dir.exists():
-            return False
+    def load_or_create_vector_store(self):
+        """Load existing persisted FAISS index if present; otherwise create a new empty index.
+        """
+        # Attempt load if persistence directory exists and appears to contain FAISS artifacts.
+        if self.persist_dir.exists():
+            try:
+                self._vector_store = FAISS.load_local(
+                    str(self.persist_dir),
+                    embeddings=self._embeddings,
+                    allow_dangerous_deserialization=True,  # Controlled local usage
+                )
+                logger.info(
+                    f"Loaded FAISS index from {self.persist_dir}."
+                )
+                return
+            except Exception as e:
+                logger.warning(f"Failed to load vector store from '{self.persist_dir}': {e}. Will create new index.")
+
+        # Create a new empty FAISS index using a dimension probe.
         try:
-            self._vector_store = FAISS.load_local(
-                str(self.persist_dir),
-                embeddings=self._embeddings,
-                allow_dangerous_deserialization=True,  # Controlled local usage
+            embedding_dim = len(self._embeddings.embed_query("dimension probe"))
+        except Exception as e:
+            logger.error(f"Failed to probe embedding dimension: {e}")
+            raise
+
+        try:
+            index = faiss.IndexFlatL2(embedding_dim)
+            self._vector_store = FAISS(
+                embedding_function=self._embeddings,
+                index=index,
+                docstore=InMemoryDocstore(),
+                index_to_docstore_id={},
             )
             logger.info(
-                f"Loaded FAISS index from {self.persist_dir} (size unknown until queried)."
+                f"Created new empty FAISS index (dimension={embedding_dim}) at {self.persist_dir}."
             )
-            return True
         except Exception as e:
-            logger.warning(f"Failed to load vector store: {e}")
-            return False
+            logger.error(f"Failed to create new FAISS index: {e}")
+            raise
+        return
 
     # ------------------------------------------------------------------
     # Helpers
@@ -195,12 +197,9 @@ def get_vector_store_service(
     embedding_provider: str = "gemini",
     persist_dir: str = "vector_store",
     use_cache: bool = True,
-    gemini_model: str = "models/gemini-embedding-001",
-    auto_load: bool = True,
+    gemini_model: str = "models/gemini-embedding-001"
 ) -> VectorStoreService:
     """Get or create a singleton VectorStoreService instance.
-
-    If auto_load=True, will attempt to load an existing index from persist_dir.
     """
     global _def_instance
     if _def_instance is None:
@@ -210,7 +209,6 @@ def get_vector_store_service(
             use_cache=use_cache,
             gemini_model=gemini_model,
         )
-        if auto_load:
-            svc.load()
+        svc.load_or_create_vector_store()
         _def_instance = svc
     return _def_instance

@@ -4,8 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.core.logger import SingletonLogger
 from app.core.logging_middleware import LoggingMiddleware
-from app.routers import health, ingestion_pipeline
-from app.routers import data_processor_router
+from app.routers import health, data_processor_router, vector_store_router
 
 logger = SingletonLogger().get_logger()
 
@@ -28,6 +27,7 @@ app.add_middleware(LoggingMiddleware)
 logger.info("Including routers...")
 app.include_router(health.router)
 app.include_router(data_processor_router.router)
+app.include_router(vector_store_router.router)
 
 # Root endpoint
 @app.get("/")
