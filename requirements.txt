@@ -9,6 +9,9 @@ tqdm
 python-dotenv
 pydantic-settings
 faiss-cpu
-langchain_openai
 langchain-google-genai
 pytest
+neo4j   
+tiktoken
+aiohttp
+google-generativeai

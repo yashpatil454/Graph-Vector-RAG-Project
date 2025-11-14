@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime
+from dataclasses import dataclass, asdict
 
 
 class PDFProcessRequest(BaseModel):
@@ -30,4 +31,20 @@ class VectorStoreRequest(BaseModel):
 	
 class VectorStoreResponse(BaseModel):
     len_documents: int
+	
+@dataclass
+class Entity:
+    text: str
+    label: str
+    start: Optional[int] = None
+    end: Optional[int] = None
+    canonical: Optional[str] = None
+
+
+@dataclass
+class Triple:
+    subject: str
+    predicate: str
+    object: str
+    provenance: Optional[Dict] = None
     
