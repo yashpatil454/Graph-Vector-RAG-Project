@@ -1,4 +1,4 @@
-from openai import OpenAI
+# from openai import OpenAI
 
 import sys
 from pathlib import Path
@@ -9,7 +9,7 @@ if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
 
 from app.core.config import settings
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
+# client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 # client.embeddings.create(
 #   model="text-embedding-3-small",
@@ -17,11 +17,11 @@ client = OpenAI(api_key=settings.OPENAI_API_KEY)
 #   encoding_format="float"
 # )
 
-response = client.responses.create(
-    model="gpt-5",
-    reasoning={"effort": "low"},
-    instructions="Talk like a pirate.",
-    input="Are semicolons optional in JavaScript?",
-)
+# response = client.responses.create(
+#     model="gpt-5",
+#     reasoning={"effort": "low"},
+#     instructions="Talk like a pirate.",
+#     input="Are semicolons optional in JavaScript?",
+# )
 
-print(response.output_text)
+# print(response.output_text)

@@ -47,4 +47,28 @@ class Triple:
     predicate: str
     object: str
     provenance: Optional[Dict] = None
+
+class KnowledgeGraphBuildResponse(BaseModel):
+	total_documents: int = Field(description="Number of documents processed for triple extraction")
+	total_triples: int = Field(description="Total triples extracted before deduplication")
+	ingested_triples: int = Field(description="Number of unique triples ingested into the graph")
+
+class KnowledgeGraphQueryResponse(BaseModel):
+	query: str = Field(description="Cypher query executed")
+	results: List[Dict[str, Any]] = Field(description="Raw result records returned from Neo4j")
+
+class FusionRequest(BaseModel):
+	query: str = Field(description="Natural language user query driving similarity search")
+	k: int = Field(default=4, description="Top-k vector hits to retrieve")
+	cypher: Optional[str] = Field(default=None, description="Optional explicit Cypher query; if omitted auto-generated from vector hits")
+	include_scores: bool = Field(default=True, description="Include similarity scores in output context")
+
+class FusionResponse(BaseModel):
+	query: str
+	k: int
+	vector_hits_count: int
+	vector_hits: List[Dict[str, Any]]
+	graph_results_count: int
+	graph_results: List[Dict[str, Any]]
+	context: str = Field(description="Fused context prepared for LLM consumption")
     

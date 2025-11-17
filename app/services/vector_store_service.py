@@ -219,7 +219,6 @@ class VectorStoreService:
 # ----------------------------------------------------------------------
 _def_instance: Optional[VectorStoreService] = None
 
-
 async def get_vector_store_service(
     embedding_provider: str = "gemini",
     persist_dir: str = "vector_store",
