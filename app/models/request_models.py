@@ -50,7 +50,8 @@ class Triple:
 
 class KnowledgeGraphBuildResponse(BaseModel):
 	total_documents: int = Field(description="Number of documents processed for triple extraction")
-	total_triples: int = Field(description="Total triples extracted before deduplication")
+	streamed_triples_written: int = Field(description="Total triples extracted and written to file during streaming")
+	loaded_triples: int = Field(description="Number of triples loaded from persisted file")
 	ingested_triples: int = Field(description="Number of unique triples ingested into the graph")
 
 class KnowledgeGraphQueryResponse(BaseModel):

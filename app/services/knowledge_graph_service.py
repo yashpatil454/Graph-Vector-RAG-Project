@@ -31,6 +31,8 @@ import asyncio
 import json
 from dataclasses import asdict
 from typing import List, Dict, Any, Optional
+from pathlib import Path
+import os
 
 from neo4j import AsyncGraphDatabase
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -54,17 +56,18 @@ class KnowledgeGraphService:
 		self._llm = ChatGoogleGenerativeAI(
 			model="gemini-2.5-flash", google_api_key=settings.GOOGLE_API_KEY
 		)
+		self.data_dir = Path(settings.PDF_DATA_DIR)
 		logger.info("KnowledgeGraphService initialized (Neo4j + Gemini 2.5 Flash)")
 
 	# ---------------------- Triple Extraction ----------------------- #
-	async def extract_triples(self, documents: List[Document]) -> List[Triple]:
+	async def extract_triples(self, documents: List[Document]) -> int:
 		"""Extract triples from documents using Gemini 2.5 Flash.
 
 		Each document is processed concurrently (CPU bound only for JSON parse).
 		"""
 		if not documents:
 			logger.warning("No documents provided for triple extraction")
-			return []
+			return 0
 
 		prompt_template = (
 			"Extract factual triples from the text below. "
@@ -72,37 +75,87 @@ class KnowledgeGraphService:
 			"Use concise canonical entity names; omit duplicates; skip trivial or vague relations.\n\nText:\n{text}"
 		)
 
-		all_triples: List[Triple] = []
-		for idx, doc in enumerate(documents):
-			text = doc.page_content
-			prompt = prompt_template.format(text=text)
-			try:
-				response = await asyncio.to_thread(self._llm.invoke, prompt)
-				raw = getattr(response, "content", None) or getattr(response, "text", "") or str(response)
-				json_str = raw
-				try:
-					clean = json_str.replace("```json", "").replace("```", "")
-					parsed = json.loads(clean)
-					logger.info(f"parsed triples: {parsed}")
-					if isinstance(parsed, list):
-						for item in parsed:
-							if isinstance(item, dict):
-								subj = item.get("subject")
-								pred = item.get("predicate")
-								obj = item.get("object")
-								if subj and pred and obj:
-									all_triples.append(
-										Triple(subject=subj.strip(), predicate=pred.strip(), object=obj.strip(), provenance=doc.metadata)
-									)
-				except json.JSONDecodeError:
-					logger.debug("Non-JSON response for a chunk; skipping.")
-			except Exception as e:
-				logger.error(f"Triple extraction failed for chunk {idx}: {e}")
-			# Simple pacing: sleep 6s between calls to remain under 10 req/min
-			await asyncio.sleep(6)
+		# Prepare output directory and file for streaming JSONL writes
+		output_dir = self.data_dir / "processed_triples"
+		output_dir.mkdir(parents=True, exist_ok=True)
+		output_path = output_dir / "triples.jsonl"
+		logger.info(f"Opening triples output file for streaming writes: {output_path}")
 
+		written_count = 0
+		all_triples: List[Triple] = []
+		# Open once; append to existing file to preserve history
+		with open(output_path, "a", encoding="utf-8") as f:
+			for idx, doc in enumerate(documents):
+				text = doc.page_content
+				prompt = prompt_template.format(text=text)
+				try:
+					response = await asyncio.to_thread(self._llm.invoke, prompt)
+					json_str = getattr(response, "content", None) or getattr(response, "text", "") or str(response)
+					try:
+						clean = json_str.replace("```json", "").replace("```", "")
+						parsed = json.loads(clean)
+						logger.info(f"parsed triples (chunk {idx}): {parsed}")
+						if isinstance(parsed, list):
+							for item in parsed:
+								if isinstance(item, dict):
+									subj = item.get("subject")
+									pred = item.get("predicate")
+									obj = item.get("object")
+									if subj and pred and obj:
+										triple_obj = Triple(subject=subj.strip(), predicate=pred.strip(), object=obj.strip(), provenance=doc.metadata)
+										all_triples.append(triple_obj)
+										# Stream write as soon as triple is created
+										f.write(json.dumps(asdict(triple_obj), ensure_ascii=False) + "\n")
+										written_count += 1
+					except json.JSONDecodeError:
+						logger.debug(f"Non-JSON response for chunk {idx}; skipping.")
+				except Exception as e:
+					logger.error(f"Triple extraction failed for chunk {idx}: {e}")
+				# Simple pacing: sleep 6s between calls to remain under 10 req/min
+				await asyncio.sleep(6)
+		logger.info(f"Closed triples output file. Total streamed triples written: {written_count}")
 		logger.info(f"Extracted {len(all_triples)} raw triples from {len(documents)} documents (sequential throttled)")
-		return all_triples
+		return written_count
+
+	def load_persisted_triples(self, limit: Optional[int] = None) -> List[Triple]:
+		"""Load streamed triples from JSONL persistence into Triple objects.
+
+		Args:
+			limit: Optional maximum number of lines to load (for sampling).
+
+		Returns:
+			List[Triple]: Reconstructed Triple objects from file.
+		"""
+		output_dir = self.data_dir / "processed_triples"
+		output_path = output_dir / "triples.jsonl"
+		if not output_path.exists():
+			logger.warning(f"Triple persistence file not found: {output_path}")
+			return []
+		triples: List[Triple] = []
+		loaded_lines = 0
+		with open(output_path, "r", encoding="utf-8") as f:
+			for line in f:
+				line = line.strip()
+				if not line:
+					continue
+				try:
+					obj = json.loads(line)
+					triple = Triple(
+						subject=obj.get("subject", ""),
+						predicate=obj.get("predicate", ""),
+						object=obj.get("object", ""),
+						provenance=obj.get("provenance", {}),
+					)
+					# Only include if core fields present
+					if triple.subject and triple.predicate and triple.object:
+						triples.append(triple)
+					loaded_lines += 1
+				except json.JSONDecodeError:
+					logger.debug("Skipping malformed JSONL triple line")
+				if limit is not None and len(triples) >= limit:
+					break
+		logger.info(f"Loaded {len(triples)} valid triples from {loaded_lines} lines in {output_path}")
+		return triples
 
 	# ---------------------- Graph Ingestion ------------------------- #
 	async def ingest_triples(self, triples: List[Triple]) -> int:
@@ -135,11 +188,15 @@ class KnowledgeGraphService:
 		"""Load persisted chunks, extract triples, and ingest into graph."""
 		processor = get_pdf_processor()
 		documents = processor.load_persisted_chunks()
-		triples = await self.extract_triples(documents[:2])
-		ingested = await self.ingest_triples(triples)
+		# Stream extraction (writes to file) - returns count of newly written triples
+		written = await self.extract_triples(documents[:2])
+		# Load all persisted triples from file for ingestion
+		loaded_triples = self.load_persisted_triples()
+		ingested = await self.ingest_triples(loaded_triples)
 		summary = {
 			"total_documents": len(documents),
-			"total_triples": len(triples),
+			"streamed_triples_written": written,
+			"loaded_triples": len(loaded_triples),
 			"ingested_triples": ingested,
 		}
 		logger.info(f"Graph build summary: {summary}")

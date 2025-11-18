@@ -16,9 +16,7 @@ docs = loaded  # List[Document]
 
 # Use a text splitter to simulate token-sized chunks
 splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-    model_name="text-embedding-3-small",  # close approximation
-    chunk_size=1000,
-    chunk_overlap=200
+    model_name="text-embedding-3-small"
 )
 
 # split_docs = splitter.split_documents(docs)

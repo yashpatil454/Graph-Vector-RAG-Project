@@ -106,30 +106,59 @@ class VectorStoreService:
         splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
             model_name="text-embedding-3-small"
         )
-
-        max_tokens_per_batch = 20_000
-        batch, batch_tokens, total_tokens, total_documents = [], 0, 0, len(documents)
+        logger.info(f"Adding {len(documents)} documents to vector store...")
+        max_tokens_per_batch = 28000
+        total_documents = len(documents)
+        logger.info(
+            f"VectorStore add_documents start | total_docs={total_documents} max_tokens_per_batch={max_tokens_per_batch}"
+        )
+        batch: List[Document] = []
+        batch_tokens = 0
+        total_tokens = 0
         batches_added = 0
+        tokens_per_doc: List[int] = []
 
-        for doc in documents:
+        for idx, doc in enumerate(documents, start=1):
             n_tokens = splitter._length_function(doc.page_content)
+            tokens_per_doc.append(n_tokens)
+            logger.info(
+                f"Doc {idx}/{total_documents} | first_5='{doc.page_content[:5].replace('\n',' ')}' | tokens={n_tokens}"
+            )
 
-            # Flush batch if exceeded limit
+            # Flush current batch if adding this doc would exceed threshold
             if batch and (batch_tokens + n_tokens > max_tokens_per_batch):
-                await self._run_blocking(self._vector_store.add_documents, batch)
                 batches_added += 1
-                batch, batch_tokens = [], 0
+                logger.info(
+                    f"Flushing batch {batches_added} | docs_in_batch={len(batch)} batch_tokens={batch_tokens} cumulative_tokens={total_tokens}"
+                )
+                await self._run_blocking(self._vector_store.add_documents, batch)
+                batch = []
+                batch_tokens = 0
+                await asyncio.sleep(62.0)
 
             batch.append(doc)
             batch_tokens += n_tokens
             total_tokens += n_tokens
 
+        # After loop, flush remaining batch
         if batch:
-            await self._run_blocking(self._vector_store.add_documents, batch)
             batches_added += 1
+            logger.info(
+                f"Flushing final batch {batches_added} | docs_in_batch={len(batch)} batch_tokens={batch_tokens} cumulative_tokens={total_tokens}"
+            )
+            await self._run_blocking(self._vector_store.add_documents, batch)
+
+        # Stats
+        min_tokens = min(tokens_per_doc) if tokens_per_doc else 0
+        max_tokens = max(tokens_per_doc) if tokens_per_doc else 0
+        avg_tokens_doc = (total_tokens / total_documents) if total_documents else 0
+        avg_tokens_batch = (total_tokens / batches_added) if batches_added else 0
 
         logger.info(
-            f"Processed {total_documents} docs in {batches_added} batches (approx {total_tokens} tokens)"
+            "VectorStore add_documents complete | "
+            f"documents={total_documents} batches={batches_added} total_tokens={total_tokens} "
+            f"min_tokens_doc={min_tokens} max_tokens_doc={max_tokens} avg_tokens_doc={avg_tokens_doc:.2f} "
+            f"avg_tokens_batch={avg_tokens_batch:.2f}"
         )
 
         await self.save()

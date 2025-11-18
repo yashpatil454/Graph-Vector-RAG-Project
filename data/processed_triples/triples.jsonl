@@ -1,0 +1,4 @@
+{"subject": "DrugA", "predicate": "TREATS", "object": "DiseaseX", "provenance": {"source": "mock_doc_1.pdf"}}
+{"subject": "DrugA", "predicate": "HAS_SIDE_EFFECT", "object": "Nausea", "provenance": {"source": "mock_doc_1.pdf"}}
+{"subject": "DrugB", "predicate": "INTERACTS_WITH", "object": "DrugA", "provenance": {"source": "mock_doc_2.pdf"}}
+{"subject": "DrugB", "predicate": "METABOLIZED_IN", "object": "Liver", "provenance": {"source": "mock_doc_2.pdf"}}
