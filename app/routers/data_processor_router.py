@@ -5,7 +5,7 @@ from app.models.request_models import (
     PDFProcessResponse
 )
 
-router = APIRouter(prefix="/data_processor", tags=["pdfs"])
+router = APIRouter(prefix="/data_processor", tags=["data_processor"])
 
 
 def get_processor() -> PDFProcessor:
