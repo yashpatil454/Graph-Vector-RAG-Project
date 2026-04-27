@@ -95,7 +95,7 @@ class Settings(BaseSettings):
     # =============================================================================
     NEO4J_URI: str = Field(default="bolt://localhost:7687", description="Neo4j connection URI")
     NEO4J_USERNAME: str = Field(default="neo4j", description="Neo4j username")
-    NEO4J_PASSWORD: str = Field(default="", description="Neo4j password")
+    NEO4J_PASSWORD: str = Field(default="12345678", description="Neo4j password")
     GRAPH_DB_TYPE: str = Field(default="neo4j", description="Graph database type")
     ENABLE_KNOWLEDGE_GRAPH: bool = Field(default=False, description="Enable knowledge graph extraction")
     

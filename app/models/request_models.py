@@ -54,6 +54,14 @@ class KnowledgeGraphBuildResponse(BaseModel):
 	loaded_triples: int = Field(description="Number of triples loaded from persisted file")
 	ingested_triples: int = Field(description="Number of unique triples ingested into the graph")
 
+class KnowledgeGraphExtractResponse(BaseModel):
+	total_documents: int = Field(description="Number of chunks loaded for extraction")
+	triples_written: int = Field(description="Number of triples extracted and written to triples.jsonl")
+
+class KnowledgeGraphIngestResponse(BaseModel):
+	loaded_triples: int = Field(description="Number of triples loaded from triples.jsonl")
+	ingested_triples: int = Field(description="Number of unique triples ingested into Neo4j")
+
 class KnowledgeGraphQueryResponse(BaseModel):
 	query: str = Field(description="Cypher query executed")
 	results: List[Dict[str, Any]] = Field(description="Raw result records returned from Neo4j")
@@ -63,6 +71,8 @@ class FusionRequest(BaseModel):
 	k: int = Field(default=4, description="Top-k vector hits to retrieve")
 	cypher: Optional[str] = Field(default=None, description="Optional explicit Cypher query; if omitted auto-generated from vector hits")
 	include_scores: bool = Field(default=True, description="Include similarity scores in output context")
+	score_threshold: float = Field(default=0.0, description="Minimum similarity score (0.0–1.0) to include a vector hit; set > 0 to filter low-quality hits")
+	two_hop: bool = Field(default=False, description="Extend graph traversal to 2-hop relationships for richer context")
 
 class FusionResponse(BaseModel):
 	query: str

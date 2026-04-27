@@ -12614,3 +12614,376 @@ Please retry in 39.642538915s. [links {
 2026-04-28 00:15:59,408 - [INFO] - FastAPIAppLogger - Completed POST /rag/data_processor/process with status 200 in 8466.13 ms
 2026-04-28 00:16:50,862 - [INFO] - FastAPIAppLogger - Incoming request: POST http://127.0.0.1:8000/rag/data_processor/process
 2026-04-28 00:16:56,099 - [INFO] - FastAPIAppLogger - Completed POST /rag/data_processor/process with status 200 in 5236.60 ms
+2026-04-28 00:29:40,303 - [INFO] - FastAPIAppLogger - Incoming request: POST http://127.0.0.1:8000/rag/data_processor/process
+2026-04-28 00:29:47,851 - [INFO] - FastAPIAppLogger - Completed POST /rag/data_processor/process with status 200 in 7547.92 ms
+2026-04-28 00:30:36,526 - [INFO] - FastAPIAppLogger - Incoming request: GET http://127.0.0.1:8000/rag/load_vector_store/initialize_load_vector_store
+2026-04-28 00:30:36,572 - [INFO] - FastAPIAppLogger - Using CacheBackedEmbeddings for Gemini.
+2026-04-28 00:30:36,573 - [INFO] - FastAPIAppLogger - Async VectorStoreService initialized provider=gemini persist_dir=vector_store cache=True
+2026-04-28 00:30:36,575 - [WARNING] - FastAPIAppLogger - Load failed, creating new index. Reason: Error in __cdecl faiss::FileIOReader::FileIOReader(const char *) at D:\a\faiss-wheels\faiss-wheels\third-party\faiss\faiss\impl\io.cpp:70: Error: 'f' failed: could not open vector_store\index.faiss for reading: No such file or directory
+2026-04-28 00:30:36,745 - [ERROR] - FastAPIAppLogger - Error while handling request: Error embedding content: 400 API Key not found. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API Key not found. Please pass a valid API key."
+]
+Traceback (most recent call last):
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\langchain_google_genai\embeddings.py", line 346, in embed_query
+    result: EmbedContentResponse = self.client.embed_content(request)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 1306, in embed_content
+    response = rpc(
+               ^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+           ^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+             ^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\google\api_core\grpc_helpers.py", line 77, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API Key not found. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API Key not found. Please pass a valid API key."
+]
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\app\core\logging_middleware.py", line 15, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\middleware\cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\routing.py", line 381, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\dependencies\utils.py", line 644, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\app\routers\vector_store_router.py", line 17, in get_vector_store
+    return await get_vector_store_service()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\app\services\vector_store_service.py", line 265, in get_vector_store_service
+    await svc.load_or_create_vector_store()
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\app\services\vector_store_service.py", line 219, in load_or_create_vector_store
+    embedding_dim = len(self._embeddings.embed_query("dimension probe"))
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\langchain_classic\embeddings\cache.py", line 254, in embed_query
+    return self.underlying_embeddings.embed_query(text)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\langchain_google_genai\embeddings.py", line 349, in embed_query
+    raise GoogleGenerativeAIError(msg) from e
+langchain_google_genai._common.GoogleGenerativeAIError: Error embedding content: 400 API Key not found. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API Key not found. Please pass a valid API key."
+]
+2026-04-28 00:32:38,707 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 00:32:38,709 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 00:32:38,710 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 00:32:52,163 - [INFO] - FastAPIAppLogger - Incoming request: GET http://127.0.0.1:8000/rag/load_vector_store/initialize_load_vector_store
+2026-04-28 00:32:52,194 - [INFO] - FastAPIAppLogger - Using CacheBackedEmbeddings for Gemini.
+2026-04-28 00:32:52,195 - [INFO] - FastAPIAppLogger - Async VectorStoreService initialized provider=gemini persist_dir=vector_store cache=True
+2026-04-28 00:32:52,204 - [WARNING] - FastAPIAppLogger - Load failed, creating new index. Reason: Error in __cdecl faiss::FileIOReader::FileIOReader(const char *) at D:\a\faiss-wheels\faiss-wheels\third-party\faiss\faiss\impl\io.cpp:70: Error: 'f' failed: could not open vector_store\index.faiss for reading: No such file or directory
+2026-04-28 00:32:52,745 - [INFO] - FastAPIAppLogger - Created new FAISS index (dim=3072) at vector_store
+2026-04-28 00:32:53,122 - [INFO] - FastAPIAppLogger - Adding 92 documents to vector store...
+2026-04-28 00:32:53,122 - [INFO] - FastAPIAppLogger - VectorStore add_documents start | total_docs=92 max_tokens_per_batch=28000
+2026-04-28 00:32:53,149 - [INFO] - FastAPIAppLogger - Doc 1/92 | first_5='An in' | tokens=998
+2026-04-28 00:32:53,156 - [INFO] - FastAPIAppLogger - Doc 2/92 | first_5='inves' | tokens=1000
+2026-04-28 00:32:53,158 - [INFO] - FastAPIAppLogger - Doc 3/92 | first_5='can p' | tokens=832
+2026-04-28 00:32:53,160 - [INFO] - FastAPIAppLogger - Doc 4/92 | first_5='[ 16 ' | tokens=1000
+2026-04-28 00:32:53,164 - [INFO] - FastAPIAppLogger - Doc 5/92 | first_5='repre' | tokens=941
+2026-04-28 00:32:53,166 - [INFO] - FastAPIAppLogger - Doc 6/92 | first_5='those' | tokens=1000
+2026-04-28 00:32:53,185 - [INFO] - FastAPIAppLogger - Doc 7/92 | first_5='were ' | tokens=946
+2026-04-28 00:32:53,190 - [INFO] - FastAPIAppLogger - Doc 8/92 | first_5='2.2.4' | tokens=1000
+2026-04-28 00:32:53,192 - [INFO] - FastAPIAppLogger - Doc 9/92 | first_5='parti' | tokens=819
+2026-04-28 00:32:53,194 - [INFO] - FastAPIAppLogger - Doc 10/92 | first_5='card”' | tokens=1000
+2026-04-28 00:32:53,196 - [INFO] - FastAPIAppLogger - Doc 11/92 | first_5='model' | tokens=824
+2026-04-28 00:32:53,198 - [INFO] - FastAPIAppLogger - Doc 12/92 | first_5='dissi' | tokens=1000
+2026-04-28 00:32:53,199 - [INFO] - FastAPIAppLogger - Doc 13/92 | first_5='outli' | tokens=792
+2026-04-28 00:32:53,201 - [INFO] - FastAPIAppLogger - Doc 14/92 | first_5='human' | tokens=1000
+2026-04-28 00:32:53,203 - [INFO] - FastAPIAppLogger - Doc 15/92 | first_5='relev' | tokens=830
+2026-04-28 00:32:53,205 - [INFO] - FastAPIAppLogger - Doc 16/92 | first_5='highl' | tokens=1000
+2026-04-28 00:32:53,206 - [INFO] - FastAPIAppLogger - Doc 17/92 | first_5='De Et' | tokens=999
+2026-04-28 00:32:53,208 - [INFO] - FastAPIAppLogger - Doc 18/92 | first_5='K.E. ' | tokens=997
+2026-04-28 00:32:53,209 - [INFO] - FastAPIAppLogger - Doc 19/92 | first_5='R.S. ' | tokens=474
+2026-04-28 00:32:53,211 - [INFO] - FastAPIAppLogger - Doc 20/92 | first_5='[50] ' | tokens=1000
+2026-04-28 00:32:53,213 - [INFO] - FastAPIAppLogger - Doc 21/92 | first_5='A. Ro' | tokens=997
+2026-04-28 00:32:53,216 - [INFO] - FastAPIAppLogger - Doc 22/92 | first_5='Nagen' | tokens=1000
+2026-04-28 00:32:53,217 - [INFO] - FastAPIAppLogger - Doc 23/92 | first_5='Rowma' | tokens=594
+2026-04-28 00:32:53,219 - [INFO] - FastAPIAppLogger - Doc 24/92 | first_5='Techn' | tokens=997
+2026-04-28 00:32:53,221 - [INFO] - FastAPIAppLogger - Doc 25/92 | first_5='syste' | tokens=659
+2026-04-28 00:32:53,222 - [INFO] - FastAPIAppLogger - Doc 26/92 | first_5='Techn' | tokens=1000
+2026-04-28 00:32:53,224 - [INFO] - FastAPIAppLogger - Doc 27/92 | first_5='focus' | tokens=760
+2026-04-28 00:32:53,226 - [INFO] - FastAPIAppLogger - Doc 28/92 | first_5='Techn' | tokens=999
+2026-04-28 00:32:53,233 - [INFO] - FastAPIAppLogger - Doc 29/92 | first_5='such ' | tokens=876
+2026-04-28 00:32:53,250 - [INFO] - FastAPIAppLogger - Doc 30/92 | first_5='Techn' | tokens=999
+2026-04-28 00:32:53,251 - [INFO] - FastAPIAppLogger - Doc 31/92 | first_5='gate ' | tokens=498
+2026-04-28 00:32:53,253 - [INFO] - FastAPIAppLogger - Doc 32/92 | first_5='Techn' | tokens=998
+2026-04-28 00:32:53,255 - [INFO] - FastAPIAppLogger - Flushing batch 1 | docs_in_batch=31 batch_tokens=27831 cumulative_tokens=27831
+2026-04-28 00:33:55,948 - [INFO] - FastAPIAppLogger - Doc 33/92 | first_5='produ' | tokens=776
+2026-04-28 00:33:55,951 - [INFO] - FastAPIAppLogger - Doc 34/92 | first_5='Techn' | tokens=999
+2026-04-28 00:33:55,952 - [INFO] - FastAPIAppLogger - Doc 35/92 | first_5='due t' | tokens=325
+2026-04-28 00:33:55,954 - [INFO] - FastAPIAppLogger - Doc 36/92 | first_5='Techn' | tokens=998
+2026-04-28 00:33:55,957 - [INFO] - FastAPIAppLogger - Doc 37/92 | first_5='that ' | tokens=660
+2026-04-28 00:33:55,959 - [INFO] - FastAPIAppLogger - Doc 38/92 | first_5='Techn' | tokens=999
+2026-04-28 00:33:55,961 - [INFO] - FastAPIAppLogger - Doc 39/92 | first_5='opera' | tokens=873
+2026-04-28 00:33:55,964 - [INFO] - FastAPIAppLogger - Doc 40/92 | first_5='Techn' | tokens=1000
+2026-04-28 00:33:55,965 - [INFO] - FastAPIAppLogger - Doc 41/92 | first_5='et al' | tokens=230
+2026-04-28 00:33:55,970 - [INFO] - FastAPIAppLogger - Doc 42/92 | first_5='Techn' | tokens=1000
+2026-04-28 00:33:55,972 - [INFO] - FastAPIAppLogger - Doc 43/92 | first_5='3.35 ' | tokens=390
+2026-04-28 00:33:55,975 - [INFO] - FastAPIAppLogger - Doc 44/92 | first_5='Techn' | tokens=1000
+2026-04-28 00:33:55,978 - [INFO] - FastAPIAppLogger - Doc 45/92 | first_5='appro' | tokens=933
+2026-04-28 00:33:55,980 - [INFO] - FastAPIAppLogger - Doc 46/92 | first_5='Techn' | tokens=999
+2026-04-28 00:33:55,981 - [INFO] - FastAPIAppLogger - Doc 47/92 | first_5='the c' | tokens=698
+2026-04-28 00:33:55,983 - [INFO] - FastAPIAppLogger - Doc 48/92 | first_5='Techn' | tokens=1000
+2026-04-28 00:33:55,994 - [INFO] - FastAPIAppLogger - Doc 49/92 | first_5='Belmo' | tokens=1001
+2026-04-28 00:33:55,999 - [INFO] - FastAPIAppLogger - Doc 50/92 | first_5='Hilbe' | tokens=1001
+2026-04-28 00:33:56,002 - [INFO] - FastAPIAppLogger - Doc 51/92 | first_5='Rev R' | tokens=539
+2026-04-28 00:33:56,005 - [INFO] - FastAPIAppLogger - Doc 52/92 | first_5='Techn' | tokens=1000
+2026-04-28 00:33:56,007 - [INFO] - FastAPIAppLogger - Doc 53/92 | first_5='of jo' | tokens=993
+2026-04-28 00:33:56,009 - [INFO] - FastAPIAppLogger - Doc 54/92 | first_5='Tixie' | tokens=996
+2026-04-28 00:33:56,010 - [INFO] - FastAPIAppLogger - Doc 55/92 | first_5='of in' | tokens=1000
+2026-04-28 00:33:56,012 - [INFO] - FastAPIAppLogger - Doc 56/92 | first_5='3CBIT' | tokens=831
+2026-04-28 00:33:56,014 - [INFO] - FastAPIAppLogger - Doc 57/92 | first_5='Techn' | tokens=999
+2026-04-28 00:33:56,016 - [INFO] - FastAPIAppLogger - Doc 58/92 | first_5='and h' | tokens=1000
+2026-04-28 00:33:56,019 - [INFO] - FastAPIAppLogger - Doc 59/92 | first_5='in Ag' | tokens=479
+2026-04-28 00:33:56,020 - [INFO] - FastAPIAppLogger - Doc 60/92 | first_5='Conte' | tokens=1000
+2026-04-28 00:33:56,022 - [INFO] - FastAPIAppLogger - Doc 61/92 | first_5='2024,' | tokens=212
+2026-04-28 00:33:56,023 - [INFO] - FastAPIAppLogger - Doc 62/92 | first_5='G. Zu' | tokens=1000
+2026-04-28 00:33:56,024 - [INFO] - FastAPIAppLogger - Doc 63/92 | first_5='accep' | tokens=1001
+2026-04-28 00:33:56,025 - [INFO] - FastAPIAppLogger - Doc 64/92 | first_5='these' | tokens=212
+2026-04-28 00:33:56,027 - [INFO] - FastAPIAppLogger - Doc 65/92 | first_5='G. Zu' | tokens=999
+2026-04-28 00:33:56,027 - [INFO] - FastAPIAppLogger - Flushing batch 2 | docs_in_batch=33 batch_tokens=27142 cumulative_tokens=54973
+2026-04-28 00:34:58,762 - [INFO] - FastAPIAppLogger - Doc 66/92 | first_5='Venka' | tokens=886
+2026-04-28 00:34:58,762 - [INFO] - FastAPIAppLogger - Doc 67/92 | first_5='G. Zu' | tokens=1000
+2026-04-28 00:34:58,762 - [INFO] - FastAPIAppLogger - Doc 68/92 | first_5='accep' | tokens=1001
+2026-04-28 00:34:58,762 - [INFO] - FastAPIAppLogger - Doc 69/92 | first_5='TAF s' | tokens=245
+2026-04-28 00:34:58,762 - [INFO] - FastAPIAppLogger - Doc 70/92 | first_5='G. Zu' | tokens=1000
+2026-04-28 00:34:58,770 - [INFO] - FastAPIAppLogger - Doc 71/92 | first_5='et al' | tokens=333
+2026-04-28 00:34:58,772 - [INFO] - FastAPIAppLogger - Doc 72/92 | first_5='G. Zu' | tokens=1000
+2026-04-28 00:34:58,773 - [INFO] - FastAPIAppLogger - Doc 73/92 | first_5='a sma' | tokens=839
+2026-04-28 00:34:58,775 - [INFO] - FastAPIAppLogger - Doc 74/92 | first_5='G. Zu' | tokens=999
+2026-04-28 00:34:58,777 - [INFO] - FastAPIAppLogger - Doc 75/92 | first_5='ment,' | tokens=828
+2026-04-28 00:34:58,779 - [INFO] - FastAPIAppLogger - Doc 76/92 | first_5='G. Zu' | tokens=999
+2026-04-28 00:34:58,780 - [INFO] - FastAPIAppLogger - Doc 77/92 | first_5='Inste' | tokens=236
+2026-04-28 00:34:58,782 - [INFO] - FastAPIAppLogger - Doc 78/92 | first_5='G. Zu' | tokens=999
+2026-04-28 00:34:58,784 - [INFO] - FastAPIAppLogger - Doc 79/92 | first_5='varia' | tokens=719
+2026-04-28 00:34:58,786 - [INFO] - FastAPIAppLogger - Doc 80/92 | first_5='G. Zu' | tokens=1000
+2026-04-28 00:34:58,787 - [INFO] - FastAPIAppLogger - Doc 81/92 | first_5='One n' | tokens=531
+2026-04-28 00:34:58,788 - [INFO] - FastAPIAppLogger - Doc 82/92 | first_5='G. Zu' | tokens=558
+2026-04-28 00:34:58,790 - [INFO] - FastAPIAppLogger - Doc 83/92 | first_5='G. Zu' | tokens=623
+2026-04-28 00:34:58,796 - [INFO] - FastAPIAppLogger - Doc 84/92 | first_5='G. Zu' | tokens=1000
+2026-04-28 00:34:58,807 - [INFO] - FastAPIAppLogger - Doc 85/92 | first_5='socia' | tokens=836
+2026-04-28 00:34:58,807 - [INFO] - FastAPIAppLogger - Doc 86/92 | first_5='G. Zu' | tokens=291
+2026-04-28 00:34:58,811 - [INFO] - FastAPIAppLogger - Doc 87/92 | first_5='G. Zu' | tokens=1000
+2026-04-28 00:34:58,814 - [INFO] - FastAPIAppLogger - Doc 88/92 | first_5='Beyon' | tokens=999
+2026-04-28 00:34:58,816 - [INFO] - FastAPIAppLogger - Doc 89/92 | first_5='(2024' | tokens=997
+2026-04-28 00:34:58,818 - [INFO] - FastAPIAppLogger - Doc 90/92 | first_5='techn' | tokens=619
+2026-04-28 00:34:58,820 - [INFO] - FastAPIAppLogger - Doc 91/92 | first_5='G. Zu' | tokens=999
+2026-04-28 00:34:58,821 - [INFO] - FastAPIAppLogger - Doc 92/92 | first_5='A rev' | tokens=243
+2026-04-28 00:34:58,822 - [INFO] - FastAPIAppLogger - Flushing final batch 3 | docs_in_batch=28 batch_tokens=21779 cumulative_tokens=76752
+2026-04-28 00:34:59,368 - [INFO] - FastAPIAppLogger - VectorStore add_documents complete | documents=92 batches=3 total_tokens=76752 min_tokens_doc=212 max_tokens_doc=1001 avg_tokens_doc=834.26 avg_tokens_batch=25584.00
+2026-04-28 00:34:59,378 - [INFO] - FastAPIAppLogger - Vector store saved to vector_store
+2026-04-28 00:34:59,379 - [INFO] - FastAPIAppLogger - Completed GET /rag/load_vector_store/initialize_load_vector_store with status 200 in 127216.45 ms
+2026-04-28 00:35:41,666 - [INFO] - FastAPIAppLogger - Incoming request: POST http://127.0.0.1:8000/rag/knowledge_graph/build
+2026-04-28 00:35:41,670 - [INFO] - FastAPIAppLogger - KnowledgeGraphService initialized (Neo4j + Gemini 2.5 Flash)
+2026-04-28 00:35:41,685 - [INFO] - FastAPIAppLogger - Opening triples output file for streaming writes: data\processed_triples\triples.jsonl
+2026-04-28 00:36:01,409 - [INFO] - FastAPIAppLogger - parsed triples (chunk 0): [{'subject': 'Jonas Ammeling', 'predicate': 'is affiliated with', 'object': 'Technische Hochschule Ingolstadt'}, {'subject': 'Marc Aubreville', 'predicate': 'is affiliated with', 'object': 'Hochschule Flensburg'}, {'subject': 'Alexis Fritz', 'predicate': 'is affiliated with', 'object': 'Albert-Ludwigs-Universität Freiburg'}, {'subject': 'Angelika Kießig', 'predicate': 'is affiliated with', 'object': 'Katholische Universität Eichstätt-Ingolstadt'}, {'subject': 'Sebastian Krügel', 'predicate': 'is affiliated with', 'object': 'Technische Hochschule Ingolstadt'}, {'subject': 'Matthias Uhl', 'predicate': 'is affiliated with', 'object': 'Universität Hohenheim'}, {'subject': 'Article', 'predicate': 'has keyword', 'object': 'Machine learning'}, {'subject': 'Article', 'predicate': 'has keyword', 'object': 'Decision-support system'}, {'subject': 'Article', 'predicate': 'has keyword', 'object': 'Human-machine interaction'}, {'subject': 'Article', 'predicate': 'has keyword', 'object': 'Medical image diagnosis'}, {'subject': 'Article', 'predicate': 'has keyword', 'object': 'Ethically aligned design'}, {'subject': 'Article', 'predicate': 'has keyword', 'object': 'Value-based design'}, {'subject': 'AI-supported medical diagnosis', 'predicate': 'offers potential for', 'object': 'utilizing collaborative intelligence'}, {'subject': 'AI-supported medical diagnosis', 'predicate': 'benefits', 'object': 'patients'}, {'subject': 'MLDSS employment in medicine', 'predicate': 'raises', 'object': 'multidisciplinary challenges'}, {'subject': 'AI in medical decision-making', 'predicate': 'can reduce', 'object': 'healthcare costs'}, {'subject': 'AI in medical decision-making', 'predicate': 'can help physicians save', 'object': 'time resources'}, {'subject': 'Ethical perspective', 'predicate': 'discusses', 'object': 'changing responsibility structures in healthcare'}, {'subject': 'Ethical perspective', 'predicate': 'discusses appropriateness of', 'object': 'philosophical concepts for MLDSS'}, {'subject': 'Ethical perspective', 'predicate': 'addresses', 'object': 'responsibility gaps'}, {'subject': 'Ethical perspective', 'predicate': 'considers', 'object': 'epistemic condition'}, {'subject': 'Ethical perspective', 'predicate': 'considers', 'object': 'control condition'}, {'subject': 'Behavioral perspective', 'predicate': 'focuses on', 'object': 'empirical phenomena from human-MLDSS interaction'}, {'subject': 'Behavioral perspective', 'predicate': 'relates to', 'object': 'impact of MLDSS on physicians'}, {'subject': 'Technical perspective', 'predicate': 'addresses issues with', 'object': 'training of ML models for accurate advice'}, {'subject': 'Epistemic condition', 'predicate': 'refers to', 'object': 'transformation of medical knowledge generation'}, {'subject': 'Control condition', 'predicate': 'tackles', 'object': 'problem of many hands in medical decision-making'}, {'subject': 'Control condition', 'predicate': 'problematizes', 'object': 'attribution of responsibility'}, {'subject': "Physicians' trust in MLDSS", 'predicate': 'is a key factor for', 'object': 'algorithm use in medicine'}, {'subject': "Physicians' reliance on automated decision support", 'predicate': 'depends on', 'object': "physicians' trust"}, {'subject': 'Interaction between physicians and MLDSS', 'predicate': 'must be considered at intersection of', 'object': 'ethical, behavioral, and technical disciplines'}]
+2026-04-28 00:36:36,529 - [INFO] - FastAPIAppLogger - parsed triples (chunk 1): [{'subject': 'Egocentric discounting', 'predicate': 'describes', 'object': 'advisees’ tendency to give advice inadequately little weight by primarily relying on their own beliefs'}, {'subject': 'Research', 'predicate': 'studies', 'object': 'human advisees’ trust in AI-based advisors'}, {'subject': 'Some studies', 'predicate': 'document', 'object': 'less trust in algorithmic advisors than human advisors (Algorithm Aversion)'}, {'subject': 'Other studies', 'predicate': 'document', 'object': 'more trust in algorithmic advisors than human advisors (Algorithm Appreciation)'}, {'subject': 'Understanding drivers of trust in algorithms', 'predicate': 'is crucial for', 'object': 'designing successful interaction between physicians and MLDSS'}, {'subject': 'Technological perspective', 'predicate': 'deals with', 'object': 'materialization of interaction between human decision-makers and MLDSS'}, {'subject': 'Technological challenges', 'predicate': 'relate to', 'object': 'training algorithmic models'}, {'subject': 'Technological challenges', 'predicate': 'relate to', 'object': 'fostering algorithmic model accuracy'}, {'subject': 'Technological progress in AI', 'predicate': 'raises', 'object': 'ethical problems of opacity in algorithmic advice generation'}, {'subject': 'Explainable AI (XAI)', 'predicate': 'addresses', 'object': 'ethical problems of opacity in algorithmic advice generation'}, {'subject': 'Research on hybrid interactions between humans and AI-based advisors', 'predicate': 'is conducted in', 'object': 'behavioral sciences and technological sciences'}, {'subject': 'Behavioral and technological sciences', 'predicate': 'lack exchange with', 'object': 'technology ethics'}, {'subject': 'Ethics', 'predicate': 'is detached from', 'object': 'empirical disciplines'}, {'subject': 'Ethics', 'predicate': 'engages in', 'object': 'normative reflection'}, {'subject': 'Interdisciplinary approach', 'predicate': 'involves', 'object': 'ethicists, behavioral scientists, and computer scientists working jointly'}, {'subject': 'This article', 'predicate': 'aims to elaborate on', 'object': 'problem of using MLDSS in medical decision-making'}, {'subject': 'This article', 'predicate': 'discusses', 'object': 'three disciplinary perspectives on MLDSS in medical decision-making'}, {'subject': 'Societal potential of ML models in medical decision-making', 'predicate': 'can be raised by', 'object': 'addressing technology holistically and interdisciplinarily'}, {'subject': 'Attending physicians', 'predicate': 'are responsible for', 'object': 'medical diagnosis, indication, and therapy plans in classical processes'}, {'subject': 'Effective use of MLDSS', 'predicate': 'can produce', 'object': 'responsibility diffusion or responsibility gaps regarding diagnosis'}, {'subject': 'Responsibility diffusion/gaps', 'predicate': 'can negatively impact', 'object': 'patients and their relatives'}, {'subject': 'Responsibility gaps (technology ethics)', 'predicate': 'describe', 'object': 'situation where opaque autonomous system decides independently'}, {'subject': 'Opaque autonomous system', 'predicate': 'makes impossible', 'object': 'human control and insight into its decision'}, {'subject': 'Moral responsibility', 'predicate': 'presupposes', 'object': 'control and epistemic cognition'}, {'subject': 'Autonomous system', 'predicate': 'is not', 'object': 'a moral actor'}, {'subject': 'Autonomous system', 'predicate': 'cannot be', 'object': 'morally responsible'}]
+2026-04-28 00:36:42,557 - [INFO] - FastAPIAppLogger - Closed triples output file. Total streamed triples written: 57
+2026-04-28 00:36:42,557 - [INFO] - FastAPIAppLogger - Extracted 57 raw triples from 2 documents (sequential throttled)
+2026-04-28 00:36:42,580 - [INFO] - FastAPIAppLogger - Loaded 57 valid triples from 57 lines in data\processed_triples\triples.jsonl
+2026-04-28 00:36:42,581 - [INFO] - FastAPIAppLogger - Ingesting 57 unique triples (from 57 raw)
+2026-04-28 00:36:46,678 - [INFO] - FastAPIAppLogger - Completed POST /rag/knowledge_graph/build with status 500 in 65011.51 ms
+2026-04-28 00:41:09,661 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 00:41:09,669 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 00:41:09,671 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 00:44:06,116 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 00:44:06,117 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 00:44:06,118 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 00:44:13,490 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 00:44:13,492 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 00:44:13,493 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 00:46:15,267 - [INFO] - FastAPIAppLogger - Incoming request: GET http://127.0.0.1:8000/rag/docs
+2026-04-28 00:46:15,268 - [INFO] - FastAPIAppLogger - Completed GET /rag/docs with status 200 in 2.00 ms
+2026-04-28 00:46:15,416 - [INFO] - FastAPIAppLogger - Incoming request: GET http://127.0.0.1:8000/rag/openapi.json
+2026-04-28 00:46:15,541 - [INFO] - FastAPIAppLogger - Completed GET /rag/openapi.json with status 200 in 125.47 ms
+2026-04-28 00:46:25,183 - [INFO] - FastAPIAppLogger - Incoming request: POST http://127.0.0.1:8000/rag/knowledge_graph/ingest
+2026-04-28 00:46:25,209 - [INFO] - FastAPIAppLogger - KnowledgeGraphService initialized (Neo4j + Gemini 2.5 Flash)
+2026-04-28 00:46:25,212 - [INFO] - FastAPIAppLogger - Loaded 57 valid triples from 57 lines in data\processed_triples\triples.jsonl
+2026-04-28 00:46:25,221 - [INFO] - FastAPIAppLogger - Ingesting 57 unique triples (from 57 raw)
+2026-04-28 00:46:25,281 - [INFO] - FastAPIAppLogger - Completed POST /rag/knowledge_graph/ingest with status 500 in 97.97 ms
+2026-04-28 00:48:50,648 - [INFO] - FastAPIAppLogger - Incoming request: POST http://127.0.0.1:8000/rag/knowledge_graph/ingest
+2026-04-28 00:48:50,652 - [INFO] - FastAPIAppLogger - Loaded 57 valid triples from 57 lines in data\processed_triples\triples.jsonl
+2026-04-28 00:48:50,657 - [INFO] - FastAPIAppLogger - Ingesting 57 unique triples (from 57 raw)
+2026-04-28 00:48:50,720 - [INFO] - FastAPIAppLogger - Completed POST /rag/knowledge_graph/ingest with status 500 in 71.51 ms
+2026-04-28 00:50:22,296 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 00:50:22,297 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 00:50:22,298 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 00:50:28,067 - [INFO] - FastAPIAppLogger - Incoming request: GET http://127.0.0.1:8000/rag/docs
+2026-04-28 00:50:28,072 - [INFO] - FastAPIAppLogger - Completed GET /rag/docs with status 200 in 4.99 ms
+2026-04-28 00:50:28,171 - [INFO] - FastAPIAppLogger - Incoming request: GET http://127.0.0.1:8000/rag/openapi.json
+2026-04-28 00:50:28,274 - [INFO] - FastAPIAppLogger - Completed GET /rag/openapi.json with status 200 in 103.13 ms
+2026-04-28 00:50:35,226 - [INFO] - FastAPIAppLogger - Incoming request: POST http://127.0.0.1:8000/rag/knowledge_graph/ingest
+2026-04-28 00:50:35,273 - [INFO] - FastAPIAppLogger - KnowledgeGraphService initialized (Neo4j + Gemini 2.5 Flash)
+2026-04-28 00:50:35,309 - [INFO] - FastAPIAppLogger - Loaded 57 valid triples from 57 lines in data\processed_triples\triples.jsonl
+2026-04-28 00:50:35,355 - [INFO] - FastAPIAppLogger - Ingesting 57 unique triples (from 57 raw)
+2026-04-28 00:50:37,382 - [INFO] - FastAPIAppLogger - Neo4j ingestion complete: 57 relationships present
+2026-04-28 00:50:37,383 - [INFO] - FastAPIAppLogger - Completed POST /rag/knowledge_graph/ingest with status 200 in 2156.30 ms
+2026-04-28 00:53:41,089 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 00:53:41,089 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 00:53:41,100 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 00:54:14,839 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 00:54:14,839 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 00:54:14,868 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 01:01:40,105 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 01:01:40,106 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 01:01:40,108 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 01:02:32,870 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 01:02:32,873 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 01:02:32,877 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 01:03:00,937 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 01:03:00,937 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 01:03:00,937 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 01:07:19,436 - [INFO] - FastAPIAppLogger - Incoming request: GET http://127.0.0.1:8000/rag/docs
+2026-04-28 01:07:19,438 - [INFO] - FastAPIAppLogger - Completed GET /rag/docs with status 200 in 1.99 ms
+2026-04-28 01:07:19,555 - [INFO] - FastAPIAppLogger - Incoming request: GET http://127.0.0.1:8000/rag/openapi.json
+2026-04-28 01:07:19,604 - [INFO] - FastAPIAppLogger - Completed GET /rag/openapi.json with status 200 in 49.60 ms
+2026-04-28 01:08:36,691 - [INFO] - FastAPIAppLogger - Incoming request: POST http://127.0.0.1:8000/rag/hybrid_fusion/fuse
+2026-04-28 01:08:36,693 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 01:08:36,729 - [INFO] - FastAPIAppLogger - Using CacheBackedEmbeddings for Gemini.
+2026-04-28 01:08:36,731 - [INFO] - FastAPIAppLogger - Async VectorStoreService initialized provider=gemini persist_dir=vector_store cache=True
+2026-04-28 01:08:36,802 - [INFO] - FastAPIAppLogger - Loaded FAISS index from vector_store
+2026-04-28 01:08:36,805 - [INFO] - FastAPIAppLogger - KnowledgeGraphService initialized (Neo4j + Gemini 2.5 Flash)
+2026-04-28 01:08:36,979 - [INFO] - FastAPIAppLogger - Results: <neo4j._async.work.result.AsyncResult object at 0x00000154E5E05670>
+2026-04-28 01:08:37,011 - [INFO] - FastAPIAppLogger - Query executed: MATCH (e:Entity) RETURN e.name AS name LIMIT $limit (rows=95)
+2026-04-28 01:08:37,643 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 50 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 01:08:37,706 - [INFO] - FastAPIAppLogger - HybridFusion: Using 2-hop auto-generated Cypher
+2026-04-28 01:08:38,089 - [INFO] - FastAPIAppLogger - Results: <neo4j._async.work.result.AsyncResult object at 0x00000154E5D2F800>
+2026-04-28 01:08:38,237 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 01:08:38,238 - [ERROR] - FastAPIAppLogger - Error while handling request: Unable to serialize unknown type: <class 'numpy.float32'>
+Traceback (most recent call last):
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\app\core\logging_middleware.py", line 15, in dispatch
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\routing.py", line 111, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\routing.py", line 413, in app
+    content = await serialize_response(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\routing.py", line 259, in serialize_response
+    return field.serialize(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\fastapi\_compat\v2.py", line 137, in serialize
+    return self._type_adapter.dump_python(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\msy5736\OneDrive - Takeda\Documents\Personal\Graph-Vector-RAG-Project\.venv\Lib\site-packages\pydantic\type_adapter.py", line 605, in dump_python
+    return self.serializer.to_python(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.PydanticSerializationError: Unable to serialize unknown type: <class 'numpy.float32'>
+2026-04-28 01:09:42,229 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 01:09:42,236 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 01:09:42,237 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 01:09:56,333 - [INFO] - FastAPIAppLogger - Incoming request: GET http://127.0.0.1:8000/rag/docs
+2026-04-28 01:09:56,336 - [INFO] - FastAPIAppLogger - Completed GET /rag/docs with status 200 in 3.00 ms
+2026-04-28 01:09:56,424 - [INFO] - FastAPIAppLogger - Incoming request: GET http://127.0.0.1:8000/rag/openapi.json
+2026-04-28 01:09:56,515 - [INFO] - FastAPIAppLogger - Completed GET /rag/openapi.json with status 200 in 90.91 ms
+2026-04-28 01:10:32,303 - [INFO] - FastAPIAppLogger - Incoming request: POST http://127.0.0.1:8000/rag/hybrid_fusion/fuse
+2026-04-28 01:10:32,306 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 01:10:32,354 - [INFO] - FastAPIAppLogger - Using CacheBackedEmbeddings for Gemini.
+2026-04-28 01:10:32,355 - [INFO] - FastAPIAppLogger - Async VectorStoreService initialized provider=gemini persist_dir=vector_store cache=True
+2026-04-28 01:10:32,373 - [INFO] - FastAPIAppLogger - Loaded FAISS index from vector_store
+2026-04-28 01:10:32,377 - [INFO] - FastAPIAppLogger - KnowledgeGraphService initialized (Neo4j + Gemini 2.5 Flash)
+2026-04-28 01:10:32,441 - [INFO] - FastAPIAppLogger - Results: <neo4j._async.work.result.AsyncResult object at 0x00000198C3033D70>
+2026-04-28 01:10:32,492 - [INFO] - FastAPIAppLogger - Query executed: MATCH (e:Entity) RETURN e.name AS name LIMIT $limit (rows=95)
+2026-04-28 01:10:32,969 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 50 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 01:10:32,990 - [INFO] - FastAPIAppLogger - HybridFusion: Using 2-hop auto-generated Cypher
+2026-04-28 01:10:32,996 - [INFO] - FastAPIAppLogger - Results: <neo4j._async.work.result.AsyncResult object at 0x00000198C315BEF0>
+2026-04-28 01:10:33,109 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 01:10:33,111 - [INFO] - FastAPIAppLogger - Completed POST /rag/hybrid_fusion/fuse with status 200 in 807.44 ms
+2026-04-28 01:12:05,838 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 01:12:05,845 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 01:12:05,846 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 01:12:36,198 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
+2026-04-28 01:12:36,200 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
+2026-04-28 01:12:36,201 - [INFO] - FastAPIAppLogger - Including routers...
