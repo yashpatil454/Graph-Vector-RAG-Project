@@ -337,6 +337,8 @@ python tests/demo_hybrid_fusion_service.py
 # Unit tests
 pytest tests/
 ```
+<img width="1904" height="883" alt="image" src="https://github.com/user-attachments/assets/2ec615ff-235c-47ae-bdb1-8b0371581374" />
+
 
 ---
 
