@@ -11,6 +11,7 @@ pydantic-settings
 faiss-cpu
 langchain-google-genai
 pytest
+pytest-asyncio
 neo4j   
 tiktoken
 aiohttp

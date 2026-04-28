@@ -12987,3 +12987,201 @@ pydantic_core._pydantic_core.PydanticSerializationError: Unable to serialize unk
 2026-04-28 01:12:36,198 - [INFO] - FastAPIAppLogger - Starting FastAPI application...
 2026-04-28 01:12:36,200 - [INFO] - FastAPIAppLogger - Setting up CORS middleware...
 2026-04-28 01:12:36,201 - [INFO] - FastAPIAppLogger - Including routers...
+2026-04-28 14:53:02,504 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:02,811 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:02,817 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:02,824 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:02,900 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:02,907 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:02,912 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:02,918 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:03,111 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:03,118 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:03,123 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:03,129 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:03,152 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:03,158 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:03,164 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:03,172 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:03,311 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:03,317 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:03,322 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:03,327 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:03,495 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:03,504 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:03,510 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:03,516 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:03,960 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:03,966 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:04,012 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:04,018 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:04,116 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,123 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:04,137 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:04,142 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:04,215 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,223 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:04,227 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:04,232 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:04,402 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,431 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:04,441 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:04,447 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:04,597 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,603 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:04,609 - [INFO] - FastAPIAppLogger - HybridFusion: Using user-supplied Cypher query
+2026-04-28 14:53:04,614 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:04,654 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,660 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:53:04,666 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:53:04,673 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:53:04,715 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,724 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,755 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,808 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,939 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,961 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:04,983 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:05,100 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:05,242 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:05,250 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:05,426 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:05,661 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:05,754 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:53:05,775 - [INFO] - FastAPIAppLogger - Opening triples output file for streaming writes: C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_writes_triples_to_jsonl0\processed_triples\triples.jsonl
+2026-04-28 14:53:05,781 - [INFO] - FastAPIAppLogger - parsed triples (chunk 0): [{'subject': 'AI', 'predicate': 'is used in', 'object': 'medicine'}]
+2026-04-28 14:53:11,796 - [INFO] - FastAPIAppLogger - Closed triples output file. Total streamed triples written: 1
+2026-04-28 14:53:11,798 - [INFO] - FastAPIAppLogger - Extracted 1 raw triples from 1 documents (sequential throttled)
+2026-04-28 14:53:11,823 - [WARNING] - FastAPIAppLogger - No documents provided for triple extraction
+2026-04-28 14:53:11,838 - [INFO] - FastAPIAppLogger - Opening triples output file for streaming writes: C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_skips_non_json_response0\processed_triples\triples.jsonl
+2026-04-28 14:53:17,869 - [INFO] - FastAPIAppLogger - Closed triples output file. Total streamed triples written: 0
+2026-04-28 14:53:17,869 - [INFO] - FastAPIAppLogger - Extracted 0 raw triples from 1 documents (sequential throttled)
+2026-04-28 14:53:17,881 - [INFO] - FastAPIAppLogger - Opening triples output file for streaming writes: C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_skips_incomplete_triples0\processed_triples\triples.jsonl
+2026-04-28 14:53:17,884 - [INFO] - FastAPIAppLogger - parsed triples (chunk 0): [{'subject': 'AI', 'predicate': 'helps'}]
+2026-04-28 14:53:23,892 - [INFO] - FastAPIAppLogger - Closed triples output file. Total streamed triples written: 0
+2026-04-28 14:53:23,892 - [INFO] - FastAPIAppLogger - Extracted 0 raw triples from 1 documents (sequential throttled)
+2026-04-28 14:53:23,905 - [INFO] - FastAPIAppLogger - Opening triples output file for streaming writes: C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_appends_to_existing_file0\processed_triples\triples.jsonl
+2026-04-28 14:53:23,908 - [INFO] - FastAPIAppLogger - parsed triples (chunk 0): [{'subject': 'AI', 'predicate': 'is used in', 'object': 'medicine'}]
+2026-04-28 14:53:29,925 - [INFO] - FastAPIAppLogger - Closed triples output file. Total streamed triples written: 1
+2026-04-28 14:53:29,926 - [INFO] - FastAPIAppLogger - Extracted 1 raw triples from 1 documents (sequential throttled)
+2026-04-28 14:53:29,995 - [INFO] - FastAPIAppLogger - Loaded 1 valid triples from 1 lines in C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_loads_valid_triples0\processed_triples\triples.jsonl
+2026-04-28 14:53:30,255 - [WARNING] - FastAPIAppLogger - Triple persistence file not found: C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_returns_empty_when_file_m0\processed_triples\triples.jsonl
+2026-04-28 14:53:30,501 - [INFO] - FastAPIAppLogger - Loaded 1 valid triples from 1 lines in C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_skips_malformed_lines0\processed_triples\triples.jsonl
+2026-04-28 14:53:30,641 - [INFO] - FastAPIAppLogger - Loaded 3 valid triples from 3 lines in C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_respects_limit0\processed_triples\triples.jsonl
+2026-04-28 14:53:30,783 - [INFO] - FastAPIAppLogger - Loaded 0 valid triples from 1 lines in C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_skips_triples_with_empty_0\processed_triples\triples.jsonl
+2026-04-28 14:53:30,818 - [WARNING] - FastAPIAppLogger - No triples provided for ingestion
+2026-04-28 14:53:30,874 - [INFO] - FastAPIAppLogger - Ingesting 2 unique triples (from 3 raw)
+2026-04-28 14:53:30,882 - [INFO] - FastAPIAppLogger - Neo4j ingestion complete: 1 relationships present
+2026-04-28 14:53:31,158 - [INFO] - FastAPIAppLogger - Ingesting 1 unique triples (from 1 raw)
+2026-04-28 14:53:31,177 - [INFO] - FastAPIAppLogger - Neo4j ingestion complete: 1 relationships present
+2026-04-28 14:53:31,480 - [INFO] - FastAPIAppLogger - Results: <AsyncMock name='mock.run()' id='1672081531072'>
+2026-04-28 14:53:31,893 - [INFO] - FastAPIAppLogger - Results: <AsyncMock name='mock.run()' id='1672536889568'>
+2026-04-28 14:53:33,590 - [INFO] - FastAPIAppLogger - Adding 2 documents to vector store...
+2026-04-28 14:53:33,591 - [INFO] - FastAPIAppLogger - VectorStore add_documents start | total_docs=2 max_tokens_per_batch=28000
+2026-04-28 14:53:33,592 - [INFO] - FastAPIAppLogger - Doc 1/2 | first_5='AI is' | tokens=9
+2026-04-28 14:53:33,593 - [INFO] - FastAPIAppLogger - Doc 2/2 | first_5='Physi' | tokens=11
+2026-04-28 14:53:33,593 - [INFO] - FastAPIAppLogger - Flushing final batch 1 | docs_in_batch=2 batch_tokens=20 cumulative_tokens=20
+2026-04-28 14:53:33,594 - [INFO] - FastAPIAppLogger - VectorStore add_documents complete | documents=2 batches=1 total_tokens=20 min_tokens_doc=9 max_tokens_doc=11 avg_tokens_doc=10.00 avg_tokens_batch=20.00
+2026-04-28 14:53:33,595 - [INFO] - FastAPIAppLogger - Vector store saved to C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_returns_total_document_co0
+2026-04-28 14:53:34,003 - [INFO] - FastAPIAppLogger - Created new FAISS index (dim=768) at C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_creates_new_store_when_di0\new_dir
+2026-04-28 14:53:34,373 - [INFO] - FastAPIAppLogger - Loaded FAISS index from C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-3\test_loads_existing_store_when0
+2026-04-28 14:54:59,039 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,070 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,076 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,082 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,089 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,096 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,104 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,111 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,119 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,125 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,130 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,136 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,143 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,149 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,154 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,160 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,167 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,174 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,180 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,185 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,191 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,196 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,201 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,207 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,214 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,220 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,226 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,232 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,239 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,244 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,254 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,260 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,268 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,274 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,279 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,284 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,290 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,294 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,298 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,301 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,307 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,312 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,320 - [INFO] - FastAPIAppLogger - HybridFusion: Using user-supplied Cypher query
+2026-04-28 14:54:59,325 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,331 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,338 - [WARNING] - FastAPIAppLogger - HybridFusion: No intersection between 0 raw candidates and KG entities; falling back to top-30 KG entities
+2026-04-28 14:54:59,343 - [INFO] - FastAPIAppLogger - HybridFusion: Using 1-hop auto-generated Cypher
+2026-04-28 14:54:59,349 - [INFO] - FastAPIAppLogger - HybridFusion: Context assembled for LLM
+2026-04-28 14:54:59,353 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,357 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,360 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,364 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,367 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,370 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,373 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,376 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,380 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,387 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,391 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,394 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,399 - [INFO] - FastAPIAppLogger - HybridFusionService initialized
+2026-04-28 14:54:59,413 - [INFO] - FastAPIAppLogger - Opening triples output file for streaming writes: C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_writes_triples_to_jsonl0\processed_triples\triples.jsonl
+2026-04-28 14:54:59,417 - [INFO] - FastAPIAppLogger - parsed triples (chunk 0): [{'subject': 'AI', 'predicate': 'is used in', 'object': 'medicine'}]
+2026-04-28 14:55:05,423 - [INFO] - FastAPIAppLogger - Closed triples output file. Total streamed triples written: 1
+2026-04-28 14:55:05,423 - [INFO] - FastAPIAppLogger - Extracted 1 raw triples from 1 documents (sequential throttled)
+2026-04-28 14:55:05,444 - [WARNING] - FastAPIAppLogger - No documents provided for triple extraction
+2026-04-28 14:55:05,456 - [INFO] - FastAPIAppLogger - Opening triples output file for streaming writes: C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_skips_non_json_response0\processed_triples\triples.jsonl
+2026-04-28 14:55:11,463 - [INFO] - FastAPIAppLogger - Closed triples output file. Total streamed triples written: 0
+2026-04-28 14:55:11,464 - [INFO] - FastAPIAppLogger - Extracted 0 raw triples from 1 documents (sequential throttled)
+2026-04-28 14:55:11,476 - [INFO] - FastAPIAppLogger - Opening triples output file for streaming writes: C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_skips_incomplete_triples0\processed_triples\triples.jsonl
+2026-04-28 14:55:11,479 - [INFO] - FastAPIAppLogger - parsed triples (chunk 0): [{'subject': 'AI', 'predicate': 'helps'}]
+2026-04-28 14:55:17,493 - [INFO] - FastAPIAppLogger - Closed triples output file. Total streamed triples written: 0
+2026-04-28 14:55:17,494 - [INFO] - FastAPIAppLogger - Extracted 0 raw triples from 1 documents (sequential throttled)
+2026-04-28 14:55:17,510 - [INFO] - FastAPIAppLogger - Opening triples output file for streaming writes: C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_appends_to_existing_file0\processed_triples\triples.jsonl
+2026-04-28 14:55:17,512 - [INFO] - FastAPIAppLogger - parsed triples (chunk 0): [{'subject': 'AI', 'predicate': 'is used in', 'object': 'medicine'}]
+2026-04-28 14:55:23,528 - [INFO] - FastAPIAppLogger - Closed triples output file. Total streamed triples written: 1
+2026-04-28 14:55:23,529 - [INFO] - FastAPIAppLogger - Extracted 1 raw triples from 1 documents (sequential throttled)
+2026-04-28 14:55:23,553 - [INFO] - FastAPIAppLogger - Loaded 1 valid triples from 1 lines in C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_loads_valid_triples0\processed_triples\triples.jsonl
+2026-04-28 14:55:23,564 - [WARNING] - FastAPIAppLogger - Triple persistence file not found: C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_returns_empty_when_file_m0\processed_triples\triples.jsonl
+2026-04-28 14:55:23,580 - [INFO] - FastAPIAppLogger - Loaded 1 valid triples from 1 lines in C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_skips_malformed_lines0\processed_triples\triples.jsonl
+2026-04-28 14:55:23,594 - [INFO] - FastAPIAppLogger - Loaded 3 valid triples from 3 lines in C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_respects_limit0\processed_triples\triples.jsonl
+2026-04-28 14:55:23,608 - [INFO] - FastAPIAppLogger - Loaded 0 valid triples from 1 lines in C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_skips_triples_with_empty_0\processed_triples\triples.jsonl
+2026-04-28 14:55:23,617 - [WARNING] - FastAPIAppLogger - No triples provided for ingestion
+2026-04-28 14:55:23,629 - [INFO] - FastAPIAppLogger - Ingesting 2 unique triples (from 3 raw)
+2026-04-28 14:55:23,631 - [INFO] - FastAPIAppLogger - Neo4j ingestion complete: 1 relationships present
+2026-04-28 14:55:23,645 - [INFO] - FastAPIAppLogger - Ingesting 1 unique triples (from 1 raw)
+2026-04-28 14:55:23,646 - [INFO] - FastAPIAppLogger - Neo4j ingestion complete: 1 relationships present
+2026-04-28 14:55:23,659 - [INFO] - FastAPIAppLogger - Results: <tests.unit.test_knowledge_graph_service.TestQuery.test_returns_list_of_dicts.<locals>.fake_run.<locals>.FakeResult object at 0x0000013D526FFF50>
+2026-04-28 14:55:23,660 - [INFO] - FastAPIAppLogger - Query executed: MATCH (e:Entity) RETURN e.name AS name (rows=1)
+2026-04-28 14:55:23,669 - [INFO] - FastAPIAppLogger - Results: <tests.unit.test_knowledge_graph_service.TestQuery.test_passes_params_to_session.<locals>.fake_run.<locals>.FakeResult object at 0x0000013D5312BB00>
+2026-04-28 14:55:23,670 - [INFO] - FastAPIAppLogger - Query executed: MATCH (e) RETURN e (rows=0)
+2026-04-28 14:55:23,759 - [INFO] - FastAPIAppLogger - Adding 2 documents to vector store...
+2026-04-28 14:55:23,760 - [INFO] - FastAPIAppLogger - VectorStore add_documents start | total_docs=2 max_tokens_per_batch=28000
+2026-04-28 14:55:23,761 - [INFO] - FastAPIAppLogger - Doc 1/2 | first_5='AI is' | tokens=9
+2026-04-28 14:55:23,762 - [INFO] - FastAPIAppLogger - Doc 2/2 | first_5='Physi' | tokens=11
+2026-04-28 14:55:23,762 - [INFO] - FastAPIAppLogger - Flushing final batch 1 | docs_in_batch=2 batch_tokens=20 cumulative_tokens=20
+2026-04-28 14:55:23,764 - [INFO] - FastAPIAppLogger - VectorStore add_documents complete | documents=2 batches=1 total_tokens=20 min_tokens_doc=9 max_tokens_doc=11 avg_tokens_doc=10.00 avg_tokens_batch=20.00
+2026-04-28 14:55:23,764 - [INFO] - FastAPIAppLogger - Vector store saved to C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_returns_total_document_co0
+2026-04-28 14:55:23,776 - [INFO] - FastAPIAppLogger - Created new FAISS index (dim=768) at C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_creates_new_store_when_di0\new_dir
+2026-04-28 14:55:23,786 - [INFO] - FastAPIAppLogger - Loaded FAISS index from C:\Users\msy5736\AppData\Local\Temp\pytest-of-msy5736\pytest-4\test_loads_existing_store_when0

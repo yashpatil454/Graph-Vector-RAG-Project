@@ -1,0 +1,16 @@
+import pytest
+from langchain_core.documents import Document
+
+
+@pytest.fixture
+def sample_documents():
+    return [
+        Document(
+            page_content="AI is transforming medicine and clinical decision-making.",
+            metadata={"source": "doc1.pdf", "page": 1},
+        ),
+        Document(
+            page_content="Physicians rely on MLDSS for diagnostic support.",
+            metadata={"source": "doc2.pdf", "page": 3},
+        ),
+    ]
