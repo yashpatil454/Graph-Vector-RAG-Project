@@ -1,4 +1,5 @@
 import logging
+import sys
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from threading import Lock
@@ -33,8 +34,10 @@ class SingletonLogger:
             )
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)
-            # Also log to console
-            console_handler = logging.StreamHandler()
+            # Also log to console — force UTF-8 to avoid cp1252 errors on Windows
+            console_handler = logging.StreamHandler(
+                stream=open(sys.stdout.fileno(), mode="w", encoding="utf-8", closefd=False)
+            )
             console_handler.setFormatter(formatter)
             self.logger.addHandler(console_handler)
 

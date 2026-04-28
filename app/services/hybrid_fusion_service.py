@@ -98,7 +98,7 @@ class HybridFusionService:
                 "UNWIND names AS n "
                 "MATCH (e:Entity {name: n})-[r1:RELATION]->(m:Entity)-[r2:RELATION]->(o:Entity) "
                 "RETURN e.name AS subject, "
-                "       r1.predicate + ' → ' + r2.predicate AS predicate, "
+                "       r1.predicate + ' -> ' + r2.predicate AS predicate, "
                 "       o.name AS object "
                 "LIMIT 80"
             )
